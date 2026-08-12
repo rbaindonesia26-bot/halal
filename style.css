@@ -1,0 +1,39 @@
+/* style.css */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #e2e8f0;
+    overscroll-behavior: none;
+}
+
+/* Mencegah auto-zoom di HP saat mengetik nominal */
+input, select, textarea {
+    font-size: 16px !important;
+}
+
+/* Animasi perpindahan halaman yang halus */
+.page-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px) scale(0.98);
+}
+
+.page-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* Animasi garis pemindai AI */
+.scanner-line {
+    animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+    0%, 100% { transform: translateY(-128px); }
+    50% { transform: translateY(128px); }
+}
