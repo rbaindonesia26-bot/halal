@@ -170,7 +170,7 @@
                             <span class="text-[10px] font-medium text-gray-700 leading-tight">Transfer<br>Bank</span>
                         </div>
                         
-<!-- Tombol Ziswaf -->
+                        <!-- Tombol Ziswaf -->
                         <div onclick="bukaHalaman('ziswaf')" class="flex flex-col items-center gap-2 cursor-pointer active:scale-95 transition-transform opacity-90">
                             <div class="w-12 h-12 rounded-[14px] bg-rose-50 text-rose-500 flex items-center justify-center text-xl shadow-sm border border-rose-100"><i class="fa-solid fa-hand-holding-heart"></i></div>
                             <span class="text-[10px] font-medium text-gray-700 leading-tight">Ziswaf<br>Donasi</span>
@@ -264,6 +264,53 @@
                     <button onclick="window.closeResult()" class="text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center text-sm"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="flex-1 overflow-y-auto p-6 bg-gray-50" id="result-content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== HALAMAN LAYANAN (OVERLAY) ==================== -->
+        <div id="halaman-overlay" class="absolute inset-0 z-[80] bg-slate-50 flex flex-col hidden page-transition page-hidden overflow-y-auto">
+            <!-- Header Overlay -->
+            <div class="bg-white px-5 py-4 flex items-center shadow-sm border-b border-gray-100 sticky top-0 z-10">
+                <button onclick="window.tutupHalaman()" class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 active:scale-90 transition mr-3">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <h2 id="overlay-title" class="font-bold text-gray-800 text-lg">Layanan</h2>
+            </div>
+
+            <!-- Konten Ziswaf -->
+            <div id="konten-ziswaf" class="hidden flex-col items-center text-center p-8 pt-12">
+                <div class="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-6 border border-rose-100 shadow-sm text-4xl text-rose-500">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Ziswaf Donasi</h2>
+                <p class="text-gray-500 text-sm">Fitur penyaluran Zakat, Infaq, Sadaqah, dan Wakaf akan segera dihubungkan dengan API BAZNAS.</p>
+            </div>
+
+            <!-- Konten Investasi -->
+            <div id="konten-investasi" class="hidden flex-col items-center text-center p-8 pt-12">
+                <div class="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mb-6 border border-yellow-100 shadow-sm text-4xl text-yellow-600">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Investasi Syariah</h2>
+                <p class="text-gray-500 text-sm">Pantau portofolio dan instrumen investasi syariah (Sukuk & Emas) Anda di sini.</p>
+            </div>
+
+            <!-- Konten Umrah -->
+            <div id="konten-umrah" class="hidden flex-col items-center text-center p-8 pt-12">
+                <div class="w-20 h-20 bg-cyan-50 rounded-full flex items-center justify-center mb-6 border border-cyan-100 shadow-sm text-4xl text-cyan-600">
+                    <i class="fa-solid fa-plane-departure"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Umrah Travel</h2>
+                <p class="text-gray-500 text-sm">Modul pemesanan tiket pesawat dan paket perjalanan Umrah sedang disiapkan.</p>
+            </div>
+
+            <!-- Konten Status Server -->
+            <div id="konten-status-server" class="hidden flex-col items-center text-center p-8 pt-12">
+                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6 border border-slate-200 shadow-sm text-4xl text-slate-500">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Status Server</h2>
+                <p class="text-gray-500 text-sm">Arsitektur HalalPay kini mengadopsi Service Layer untuk persiapan koneksi API sungguhan. Semua sistem berjalan normal.</p>
             </div>
         </div>
 
@@ -479,8 +526,50 @@
 
     <script type="module">
         // ==========================================
+        // FUNGSI OVERLAY ZISWAF, UMRAH, DLL
+        // ==========================================
+        window.bukaHalaman = function(id) {
+            const overlay = document.getElementById('halaman-overlay');
+            overlay.classList.remove('hidden', 'page-hidden');
+            overlay.classList.add('page-active');
+
+            // Sembunyikan semua isi konten terlebih dahulu
+            document.getElementById('konten-ziswaf').classList.add('hidden');
+            document.getElementById('konten-investasi').classList.add('hidden');
+            document.getElementById('konten-umrah').classList.add('hidden');
+            document.getElementById('konten-status-server').classList.add('hidden');
+            
+            document.getElementById('konten-ziswaf').classList.remove('flex');
+            document.getElementById('konten-investasi').classList.remove('flex');
+            document.getElementById('konten-umrah').classList.remove('flex');
+            document.getElementById('konten-status-server').classList.remove('flex');
+            
+            // Hanya menampilkan konten yang tombolnya diklik
+            const target = document.getElementById('konten-' + id);
+            target.classList.remove('hidden');
+            target.classList.add('flex');
+
+            // Ubah judul header sesuai menu
+            const titleEl = document.getElementById('overlay-title');
+            if(id === 'ziswaf') titleEl.innerText = 'Ziswaf Donasi';
+            if(id === 'investasi') titleEl.innerText = 'Investasi Syariah';
+            if(id === 'umrah') titleEl.innerText = 'Umrah Travel';
+            if(id === 'status-server') titleEl.innerText = 'Status Server';
+        };
+
+        window.tutupHalaman = function() {
+            const overlay = document.getElementById('halaman-overlay');
+            overlay.classList.remove('page-active');
+            overlay.classList.add('page-hidden');
+            // Menunggu animasi selesai sebelum dihilangkan sepenuhnya
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        };
+
+
+        // ==========================================
         // ARSITEKTUR CLOUD DATABASE (MOCK)
-        // Menyimpan data permanen di memori lokal
         // ==========================================
         class CloudDatabaseService {
             static getBalance() {
