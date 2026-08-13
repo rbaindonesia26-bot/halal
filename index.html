@@ -277,13 +277,45 @@
                 <h2 id="overlay-title" class="font-bold text-gray-800 text-lg">Layanan</h2>
             </div>
 
-            <!-- Konten Ziswaf -->
-            <div id="konten-ziswaf" class="hidden flex-col items-center text-center p-8 pt-12">
-                <div class="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-6 border border-rose-100 shadow-sm text-4xl text-rose-500">
+<!-- Konten Ziswaf -->
+            <div id="konten-ziswaf" class="hidden flex-col items-center text-center p-6 pt-8 w-full max-w-sm mx-auto">
+                <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mb-4 border border-rose-100 shadow-sm text-3xl text-rose-500">
                     <i class="fa-solid fa-hand-holding-heart"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Ziswaf Donasi</h2>
-                <p class="text-gray-500 text-sm">Fitur penyaluran Zakat, Infaq, Sadaqah, dan Wakaf akan segera dihubungkan dengan API BAZNAS.</p>
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Ziswaf Donasi</h2>
+                <p class="text-gray-500 text-xs mb-6">Salurkan Zakat, Infaq, Sadaqah & Wakaf terbaik Anda secara aman.</p>
+                
+                <!-- Pilihan Jenis Ziswaf -->
+                <div class="w-full mb-4 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Pilih Program</label>
+                    <select id="ziswaf-type" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-gray-800 outline-none focus:border-rose-500">
+                        <option value="Zakat Maal / Penghasilan">Zakat Maal / Penghasilan</option>
+                        <option value="Infaq & Sadaqah Harian">Infaq & Sadaqah Harian</option>
+                        <option value="Wakaf Produktif">Wakaf Produktif</option>
+                    </select>
+                </div>
+
+                <!-- Pilihan Nominal Terkecil -->
+                <div class="w-full mb-5 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">Pilih Nominal Donasi</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="window.pilihNominalZiswaf(10000)" id="btn-nom-10000" class="ziswaf-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-rose-500 transition">Rp 10rb</button>
+                        <button onclick="window.pilihNominalZiswaf(20000)" id="btn-nom-20000" class="ziswaf-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-rose-500 transition">Rp 20rb</button>
+                        <button onclick="window.pilihNominalZiswaf(50000)" id="btn-nom-50000" class="ziswaf-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-rose-500 transition">Rp 50rb</button>
+                    </div>
+                </div>
+
+                <!-- Input Nominal Manual -->
+                <div class="w-full mb-6 text-left relative">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Atau Masukkan Nominal Lain</label>
+                    <span class="absolute left-4 top-[31px] font-bold text-gray-500 text-xs">Rp</span>
+                    <input type="number" id="ziswaf-custom-amount" placeholder="10000" class="w-full bg-white border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs font-bold text-gray-800 outline-none focus:border-rose-500">
+                </div>
+
+                <!-- Tombol Eksekusi Donasi -->
+                <button onclick="window.prosesZiswafDonasi()" class="w-full bg-rose-500 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-rose-600 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-hand-holding-heart"></i> Donasi Sekarang
+                </button>
             </div>
 
             <!-- Konten Investasi -->
@@ -525,6 +557,52 @@
     </div> <!-- Penutup BINGKAI HP -->
 
     <script type="module">
+        // Logika Interaktif Tombol Ziswaf
+        window.selectedZiswafAmount = 0;
+        
+        window.pilihNominalZiswaf = function(nominal) {
+            window.selectedZiswafAmount = nominal;
+            document.getElementById('ziswaf-custom-amount').value = nominal;
+            
+            // Efek visual tombol aktif
+            document.querySelectorAll('.ziswaf-nom-btn').forEach(btn => {
+                btn.classList.remove('bg-rose-500', 'text-white', 'border-rose-500');
+                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200');
+            });
+            const activeBtn = document.getElementById('btn-nom-' + nominal);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200');
+                activeBtn.classList.add('bg-rose-500', 'text-white', 'border-rose-500');
+            }
+        };
+
+        window.prosesZiswafDonasi = async function() {
+            const jenis = document.getElementById('ziswaf-type').value;
+            const customInput = document.getElementById('ziswaf-custom-amount');
+            const nominal = parseInt(customInput.value);
+
+            if(!nominal || nominal < 5000) {
+                return window.showCustomAlert("Nominal Terlalu Kecil", "Minimal donasi adalah Rp 5.000");
+            }
+            if(window.currentBalance < nominal) {
+                return window.showCustomAlert("Saldo Kurang", "Saldo HalalPay Anda tidak mencukupi untuk melakukan donasi ini.");
+            }
+
+            window.tutupHalaman();
+            window.showLoading("Menyalurkan Ziswaf via BAZNAS API...");
+
+            setTimeout(async () => {
+                window.currentBalance -= nominal;
+                await window.addTransactionRecord(`Donasi ${jenis}`, "out", nominal);
+                window.hideLoading();
+                
+                document.getElementById('pay-merchant-name').innerText = `Donasi Sukses: ${jenis}`;
+                document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
+                window.toggleModal('paymentModal');
+                
+                customInput.value = '';
+            }, 1200);
+        };
         // ==========================================
         // FUNGSI OVERLAY ZISWAF, UMRAH, DLL
         // ==========================================
