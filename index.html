@@ -318,13 +318,52 @@
                 </button>
             </div>
 
-            <!-- Konten Investasi -->
-            <div id="konten-investasi" class="hidden flex-col items-center text-center p-8 pt-12">
-                <div class="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mb-6 border border-yellow-100 shadow-sm text-4xl text-yellow-600">
+            <!-- Konten Investasi (Interaktif) -->
+            <div id="konten-investasi" class="hidden flex-col items-center text-center p-6 pt-8 w-full max-w-sm mx-auto">
+                <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mb-4 border border-yellow-100 shadow-sm text-3xl text-yellow-600">
                     <i class="fa-solid fa-coins"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Investasi Syariah</h2>
-                <p class="text-gray-500 text-sm">Pantau portofolio dan instrumen investasi syariah (Sukuk & Emas) Anda di sini.</p>
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Investasi Syariah</h2>
+                <p class="text-gray-500 text-xs mb-5">Mulai perjalanan finansial Anda dengan instrumen bebas riba.</p>
+
+                <!-- Portofolio Mini -->
+                <div class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 rounded-2xl p-4 text-left text-white mb-6 shadow-md relative overflow-hidden">
+                    <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-6xl opacity-20"></i>
+                    <p class="text-[10px] font-medium opacity-90 mb-1">Total Portofolio Saya</p>
+                    <h3 class="text-xl font-bold tracking-tight" id="total-portofolio-investasi">Rp 0</h3>
+                </div>
+                
+                <!-- Pilihan Instrumen -->
+                <div class="w-full mb-4 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Pilih Instrumen</label>
+                    <select id="investasi-type" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-gray-800 outline-none focus:border-yellow-500">
+                        <option value="Emas Digital Antam">Emas Digital Antam (Mulai 0.01g)</option>
+                        <option value="Sukuk Ritel SR019">Sukuk Ritel (Obligasi Syariah)</option>
+                        <option value="Reksa Dana Pasar Uang">Reksa Dana Pasar Uang Syariah</option>
+                    </select>
+                </div>
+
+                <!-- Pilihan Nominal -->
+                <div class="w-full mb-5 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">Pilih Nominal Pembelian</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="window.pilihNominalInvestasi(50000)" id="btn-inv-50000" class="inv-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-yellow-500 transition">Rp 50rb</button>
+                        <button onclick="window.pilihNominalInvestasi(100000)" id="btn-inv-100000" class="inv-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-yellow-500 transition">Rp 100rb</button>
+                        <button onclick="window.pilihNominalInvestasi(500000)" id="btn-inv-500000" class="inv-nom-btn bg-white border border-gray-200 py-2.5 rounded-xl text-xs font-bold text-gray-700 hover:border-yellow-500 transition">Rp 500rb</button>
+                    </div>
+                </div>
+
+                <!-- Input Nominal Manual -->
+                <div class="w-full mb-6 text-left relative">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Atau Masukkan Nominal</label>
+                    <span class="absolute left-4 top-[31px] font-bold text-gray-500 text-xs">Rp</span>
+                    <input type="number" id="investasi-custom-amount" placeholder="50000" class="w-full bg-white border border-gray-200 rounded-xl py-2.5 pl-10 pr-4 text-xs font-bold text-gray-800 outline-none focus:border-yellow-500">
+                </div>
+
+                <!-- Tombol Eksekusi -->
+                <button onclick="window.prosesInvestasi()" class="w-full bg-amber-500 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-amber-600 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cart-shopping"></i> Beli Sekarang
+                </button>
             </div>
 
             <!-- Konten Umrah -->
@@ -642,6 +681,73 @@
         };
 
         // ==========================================
+        // LOGIKA INTERAKTIF INVESTASI
+        // ==========================================
+        window.selectedInvestasiAmount = 0;
+        
+        // Mengambil data portofolio dari memori lokal (jika sudah pernah beli)
+        window.totalPortofolio = localStorage.getItem('suqpay_portofolio') ? parseInt(localStorage.getItem('suqpay_portofolio')) : 0;
+        
+        // Update angka di Portofolio
+        window.updatePortofolioDisplay = function() {
+            const portoEl = document.getElementById('total-portofolio-investasi');
+            if (portoEl) portoEl.innerText = 'Rp ' + window.totalPortofolio.toLocaleString('id-ID');
+        };
+
+        window.pilihNominalInvestasi = function(nominal) {
+            window.selectedInvestasiAmount = nominal;
+            document.getElementById('investasi-custom-amount').value = nominal;
+            
+            // Efek visual tombol
+            document.querySelectorAll('.inv-nom-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
+                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200');
+            });
+            const activeBtn = document.getElementById('btn-inv-' + nominal);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200');
+                activeBtn.classList.add('bg-amber-500', 'text-white', 'border-amber-500');
+            }
+        };
+
+        window.prosesInvestasi = async function() {
+            const jenis = document.getElementById('investasi-type').value;
+            const customInput = document.getElementById('investasi-custom-amount');
+            const nominal = parseInt(customInput.value);
+
+            if(!nominal || nominal < 50000) {
+                return window.showCustomAlert("Nominal Terlalu Kecil", "Minimal pembelian investasi adalah Rp 50.000");
+            }
+            if(window.currentBalance < nominal) {
+                return window.showCustomAlert("Saldo Kurang", "Saldo SuqPay Anda tidak mencukupi untuk pembelian aset ini.");
+            }
+
+            window.tutupHalaman();
+            window.showLoading("Memproses Transaksi Investasi...");
+
+            setTimeout(async () => {
+                // Potong Saldo Utama SuqPay
+                window.currentBalance -= nominal;
+                
+                // Tambah ke Saldo Portofolio Investasi
+                window.totalPortofolio += nominal;
+                localStorage.setItem('suqpay_portofolio', window.totalPortofolio);
+                
+                await window.addTransactionRecord(`Beli ${jenis}`, "out", nominal);
+                window.hideLoading();
+                
+                // Munculkan Nota Berhasil
+                document.getElementById('pay-merchant-name').innerText = `Pembelian Sukses: ${jenis}`;
+                document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
+                window.toggleModal('paymentModal');
+                
+                // Bersihkan input & perbarui tampilan portofolio
+                customInput.value = '';
+                window.updatePortofolioDisplay();
+            }, 1500);
+        };
+
+        // ==========================================
         // ARSITEKTUR CLOUD DATABASE (SUQPAY MOCK)
         // ==========================================
         class CloudDatabaseService {
@@ -664,6 +770,7 @@
             static clearData() {
                 localStorage.removeItem('suqpay_cloud_balance');
                 localStorage.removeItem('suqpay_cloud_tx');
+                localStorage.removeItem('suqpay_portofolio'); // Hapus juga portofolio investasi
             }
         }
 
@@ -780,6 +887,8 @@
                 CloudDatabaseService.clearData();
                 window.currentBalance = 0;
                 window.transactions = [];
+                window.totalPortofolio = 0;
+                window.updatePortofolioDisplay();
                 window.renderTransactions();
                 window.updateBalanceDisplay();
                 
@@ -1232,12 +1341,12 @@
                 const profileUid = document.getElementById('profile-uid');
                 if(profileUid) profileUid.innerText = window.currentUser.uid;
                 
-                // Saldo mungkin ter-reset ke 0 karena nama database lokal diubah ke SuqPay
                 window.currentBalance = CloudDatabaseService.getBalance() || 0;
                 window.transactions = CloudDatabaseService.getTransactions() || [];
                 
                 window.updateBalanceDisplay();
                 window.renderTransactions();
+                window.updatePortofolioDisplay(); // Memuat nilai portofolio investasi
                 
                 window.setServerStatus('connected');
             }, 1200);
