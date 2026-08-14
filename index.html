@@ -366,13 +366,52 @@
                 </button>
             </div>
 
-            <!-- Konten Umrah -->
-            <div id="konten-umrah" class="hidden flex-col items-center text-center p-8 pt-12">
-                <div class="w-20 h-20 bg-cyan-50 rounded-full flex items-center justify-center mb-6 border border-cyan-100 shadow-sm text-4xl text-cyan-600">
+            <!-- Konten Umrah (Interaktif DP Booking) -->
+            <div id="konten-umrah" class="hidden flex-col items-center text-center p-6 pt-8 w-full max-w-sm mx-auto">
+                <div class="w-16 h-16 bg-cyan-50 rounded-full flex items-center justify-center mb-4 border border-cyan-100 shadow-sm text-3xl text-cyan-600">
                     <i class="fa-solid fa-plane-departure"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Umrah Travel</h2>
-                <p class="text-gray-500 text-sm">Modul pemesanan tiket pesawat dan paket perjalanan Umrah sedang disiapkan.</p>
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Umrah Travel</h2>
+                <p class="text-gray-500 text-xs mb-5">Pesan paket perjalanan Umrah Anda dan bayar DP dengan mudah melalui SuqPay.</p>
+
+                <!-- Info Paket Promosi -->
+                <div class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl p-4 text-left text-white mb-6 shadow-md relative overflow-hidden">
+                    <i class="fa-solid fa-kaaba absolute -right-4 -bottom-4 text-6xl opacity-20"></i>
+                    <p class="text-[10px] font-medium opacity-90 mb-1">Keberangkatan Terdekat</p>
+                    <h3 class="text-lg font-bold tracking-tight">15 Oktober 2026</h3>
+                    <p class="text-[9px] text-cyan-100 mt-1 font-medium"><i class="fa-solid fa-plane text-cyan-200 mr-1"></i> Penerbangan Langsung Saudia Airlines</p>
+                </div>
+
+                <!-- Pilihan Paket Umrah -->
+                <div class="w-full mb-4 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Pilih Paket Umrah</label>
+                    <select id="umrah-type" onchange="window.hitungTotalUmrah()" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-xs font-semibold text-gray-800 outline-none focus:border-cyan-500">
+                        <option value="5000000" data-name="Umrah Reguler (9 Hari)">Umrah Reguler 9 Hari (DP Rp 5 Juta/pax)</option>
+                        <option value="7500000" data-name="Umrah Plus Turki (12 Hari)">Umrah Plus Turki 12 Hari (DP Rp 7,5 Juta/pax)</option>
+                        <option value="10000000" data-name="Umrah VIP Ramadhan">Umrah VIP Ramadhan (DP Rp 10 Juta/pax)</option>
+                    </select>
+                </div>
+
+                <!-- Jumlah Jamaah (Pax) -->
+                <div class="w-full mb-6 text-left">
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2">Jumlah Jamaah (Pax)</label>
+                    <div class="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-2 px-3 shadow-sm">
+                        <button onclick="window.ubahPaxUmrah(-1)" class="w-8 h-8 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 font-bold active:scale-95 transition">-</button>
+                        <span id="umrah-pax-display" class="font-bold text-base text-gray-800 w-10 text-center">1</span>
+                        <button onclick="window.ubahPaxUmrah(1)" class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-600 hover:bg-cyan-100 font-bold active:scale-95 transition">+</button>
+                    </div>
+                </div>
+
+                <!-- Total DP Checkout -->
+                <div class="w-full mb-5 flex justify-between items-center border-t border-gray-100 pt-5">
+                    <span class="text-xs font-bold text-gray-500">Total Pembayaran DP:</span>
+                    <span id="umrah-total-price" class="text-lg font-bold text-cyan-600 tracking-tight">Rp 5.000.000</span>
+                </div>
+
+                <!-- Tombol Eksekusi -->
+                <button onclick="window.prosesUmrah()" class="w-full bg-cyan-600 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-cyan-700 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plane-up"></i> Bayar DP Sekarang
+                </button>
             </div>
 
             <!-- Konten Status Server -->
@@ -684,11 +723,8 @@
         // LOGIKA INTERAKTIF INVESTASI
         // ==========================================
         window.selectedInvestasiAmount = 0;
-        
-        // Mengambil data portofolio dari memori lokal (jika sudah pernah beli)
         window.totalPortofolio = localStorage.getItem('suqpay_portofolio') ? parseInt(localStorage.getItem('suqpay_portofolio')) : 0;
         
-        // Update angka di Portofolio
         window.updatePortofolioDisplay = function() {
             const portoEl = document.getElementById('total-portofolio-investasi');
             if (portoEl) portoEl.innerText = 'Rp ' + window.totalPortofolio.toLocaleString('id-ID');
@@ -698,7 +734,6 @@
             window.selectedInvestasiAmount = nominal;
             document.getElementById('investasi-custom-amount').value = nominal;
             
-            // Efek visual tombol
             document.querySelectorAll('.inv-nom-btn').forEach(btn => {
                 btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
                 btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200');
@@ -726,25 +761,75 @@
             window.showLoading("Memproses Transaksi Investasi...");
 
             setTimeout(async () => {
-                // Potong Saldo Utama SuqPay
                 window.currentBalance -= nominal;
-                
-                // Tambah ke Saldo Portofolio Investasi
                 window.totalPortofolio += nominal;
                 localStorage.setItem('suqpay_portofolio', window.totalPortofolio);
                 
                 await window.addTransactionRecord(`Beli ${jenis}`, "out", nominal);
                 window.hideLoading();
                 
-                // Munculkan Nota Berhasil
                 document.getElementById('pay-merchant-name').innerText = `Pembelian Sukses: ${jenis}`;
                 document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
                 window.toggleModal('paymentModal');
                 
-                // Bersihkan input & perbarui tampilan portofolio
                 customInput.value = '';
                 window.updatePortofolioDisplay();
             }, 1500);
+        };
+
+        // ==========================================
+        // LOGIKA INTERAKTIF UMRAH (DP BOOKING)
+        // ==========================================
+        window.umrahPax = 1;
+
+        window.ubahPaxUmrah = function(delta) {
+            window.umrahPax += delta;
+            if (window.umrahPax < 1) window.umrahPax = 1; // Minimal 1 orang
+            if (window.umrahPax > 10) window.umrahPax = 10; // Maksimal 10 orang per booking
+            
+            document.getElementById('umrah-pax-display').innerText = window.umrahPax;
+            window.hitungTotalUmrah();
+        };
+
+        window.hitungTotalUmrah = function() {
+            const selectEl = document.getElementById('umrah-type');
+            const dpPerPax = parseInt(selectEl.value);
+            const totalDp = dpPerPax * window.umrahPax;
+            
+            document.getElementById('umrah-total-price').innerText = 'Rp ' + totalDp.toLocaleString('id-ID');
+        };
+
+        window.prosesUmrah = async function() {
+            const selectEl = document.getElementById('umrah-type');
+            const dpPerPax = parseInt(selectEl.value);
+            const namaPaket = selectEl.options[selectEl.selectedIndex].getAttribute('data-name');
+            const totalDp = dpPerPax * window.umrahPax;
+
+            if(window.currentBalance < totalDp) {
+                return window.showCustomAlert("Saldo Kurang", `Saldo SuqPay Anda tidak mencukupi untuk membayar DP Booking Umrah sebesar Rp ${totalDp.toLocaleString('id-ID')}.`);
+            }
+
+            window.tutupHalaman();
+            window.showLoading("Memproses Pemesanan Umrah...");
+
+            setTimeout(async () => {
+                // Potong Saldo Utama
+                window.currentBalance -= totalDp;
+                
+                await window.addTransactionRecord(`DP ${namaPaket} (${window.umrahPax} Pax)`, "out", totalDp);
+                window.hideLoading();
+                
+                // Munculkan Nota Berhasil
+                document.getElementById('pay-merchant-name').innerText = `Booking Umrah: ${namaPaket} x${window.umrahPax}`;
+                document.getElementById('pay-modal-amount').innerText = `-Rp ${totalDp.toLocaleString('id-ID')}`;
+                window.toggleModal('paymentModal');
+                
+                // Kembalikan form ke asal
+                window.umrahPax = 1;
+                document.getElementById('umrah-pax-display').innerText = window.umrahPax;
+                selectEl.selectedIndex = 0;
+                window.hitungTotalUmrah();
+            }, 1800);
         };
 
         // ==========================================
@@ -770,7 +855,7 @@
             static clearData() {
                 localStorage.removeItem('suqpay_cloud_balance');
                 localStorage.removeItem('suqpay_cloud_tx');
-                localStorage.removeItem('suqpay_portofolio'); // Hapus juga portofolio investasi
+                localStorage.removeItem('suqpay_portofolio');
             }
         }
 
@@ -1346,7 +1431,7 @@
                 
                 window.updateBalanceDisplay();
                 window.renderTransactions();
-                window.updatePortofolioDisplay(); // Memuat nilai portofolio investasi
+                window.updatePortofolioDisplay();
                 
                 window.setServerStatus('connected');
             }, 1200);
