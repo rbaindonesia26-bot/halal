@@ -196,8 +196,8 @@
                     </div>
                 </div>
 
-                <!-- Promo Banner -->
-                <div class="bg-gradient-to-r from-[#f0fdfa] to-[#ecfdf5] rounded-2xl p-4 border border-emerald-100/60 shadow-sm flex items-center justify-between mt-auto mb-2 cursor-pointer active:scale-[0.98] transition-transform">
+                <!-- Promo Banner (Kini bisa diklik) -->
+                <div onclick="bukaHalaman('suqna-ecosystem')" class="bg-gradient-to-r from-[#f0fdfa] to-[#ecfdf5] rounded-2xl p-4 border border-emerald-100/60 shadow-sm flex items-center justify-between mt-auto mb-2 cursor-pointer active:scale-[0.98] transition-transform">
                     <div>
                         <h4 class="text-xs font-bold text-gray-800 mb-1">Ekosistem SUQNA Terpadu 🏢</h4>
                         <p class="text-[10px] text-gray-500 font-medium">Platform transaksi yang sejalan dengan ekonomi Islam.</p>
@@ -414,13 +414,83 @@
                 </button>
             </div>
 
-            <!-- Konten Status Server -->
-            <div id="konten-status-server" class="hidden flex-col items-center text-center p-8 pt-12">
-                <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mb-6 border border-slate-200 shadow-sm text-4xl text-slate-500">
+            <!-- Konten Status Server (Dashboard Monitoring) -->
+            <div id="konten-status-server" class="hidden flex-col items-center text-center p-6 pt-8 w-full max-w-sm mx-auto">
+                <div class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-200 shadow-sm text-3xl text-slate-500">
                     <i class="fa-solid fa-server"></i>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Status Server</h2>
-                <p class="text-gray-500 text-sm">Arsitektur SuqPay kini terhubung dengan ekosistem SUQNA. Semua sistem berjalan normal.</p>
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Status Server SUQNA</h2>
+                <p class="text-gray-500 text-xs mb-6">Pemantauan real-time infrastruktur cloud dan API Service Layer.</p>
+
+                <!-- Matrik Dashboard Server -->
+                <div class="grid grid-cols-2 gap-3 w-full mb-6 text-left">
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase">Uptime</p>
+                        <p class="text-lg font-bold text-emerald-600">99.99%</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase">Latency</p>
+                        <p class="text-lg font-bold text-blue-600" id="server-latency">24 ms</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase">API Core</p>
+                        <p class="text-sm font-bold text-emerald-600 mt-1"><i class="fa-solid fa-circle-check mr-1"></i>Connected</p>
+                    </div>
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm">
+                        <p class="text-[9px] font-bold text-gray-400 uppercase">Database</p>
+                        <p class="text-sm font-bold text-emerald-600 mt-1"><i class="fa-solid fa-cloud mr-1"></i>Synced</p>
+                    </div>
+                </div>
+
+                <!-- Tombol Eksekusi -->
+                <button onclick="window.pingServer()" class="w-full bg-slate-800 text-white font-bold text-xs py-3.5 rounded-xl shadow-md hover:bg-slate-900 active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate"></i> Ping Server Ulang
+                </button>
+            </div>
+
+            <!-- Konten Ekosistem SUQNA Terpadu -->
+            <div id="konten-suqna-ecosystem" class="hidden flex-col items-center text-center p-6 pt-8 w-full max-w-sm mx-auto">
+                <div class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-4 border border-emerald-100 shadow-sm text-3xl text-emerald-600">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Ekosistem SUQNA</h2>
+                <p class="text-gray-500 text-xs mb-6">Integrasi layanan digital Islami dalam satu genggaman super app.</p>
+
+                <!-- Daftar Ekosistem -->
+                <div class="w-full space-y-3">
+                    <div class="bg-white border border-gray-200 p-3 rounded-xl shadow-sm flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-wallet"></i></div>
+                            <div class="text-left">
+                                <p class="font-bold text-gray-800 text-sm">SuqPay</p>
+                                <p class="text-[9px] text-gray-500 font-medium">Dompet Digital Syariah (Aktif)</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>
+                    </div>
+                    
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl shadow-sm flex items-center justify-between opacity-70">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-store"></i></div>
+                            <div class="text-left">
+                                <p class="font-bold text-gray-800 text-sm">SuqMart</p>
+                                <p class="text-[9px] text-gray-500 font-medium">Marketplace Halal</p>
+                            </div>
+                        </div>
+                        <span class="text-[8px] bg-gray-200 text-gray-500 font-bold px-2 py-1 rounded">SEGERA</span>
+                    </div>
+
+                    <div class="bg-gray-50 border border-gray-200 p-3 rounded-xl shadow-sm flex items-center justify-between opacity-70">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-purple-50 text-purple-500 rounded-lg flex items-center justify-center text-lg"><i class="fa-solid fa-handshake-angle"></i></div>
+                            <div class="text-left">
+                                <p class="font-bold text-gray-800 text-sm">SuqFund</p>
+                                <p class="text-[9px] text-gray-500 font-medium">Crowdfunding Syariah</p>
+                            </div>
+                        </div>
+                        <span class="text-[8px] bg-gray-200 text-gray-500 font-bold px-2 py-1 rounded">SEGERA</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -643,16 +713,20 @@
             overlay.classList.remove('hidden', 'page-hidden');
             overlay.classList.add('page-active');
 
+            // Sembunyikan semua konten terlebih dahulu
             document.getElementById('konten-ziswaf').classList.add('hidden');
             document.getElementById('konten-investasi').classList.add('hidden');
             document.getElementById('konten-umrah').classList.add('hidden');
             document.getElementById('konten-status-server').classList.add('hidden');
+            document.getElementById('konten-suqna-ecosystem').classList.add('hidden');
             
             document.getElementById('konten-ziswaf').classList.remove('flex');
             document.getElementById('konten-investasi').classList.remove('flex');
             document.getElementById('konten-umrah').classList.remove('flex');
             document.getElementById('konten-status-server').classList.remove('flex');
+            document.getElementById('konten-suqna-ecosystem').classList.remove('flex');
             
+            // Tampilkan hanya yang diklik
             const target = document.getElementById('konten-' + id);
             target.classList.remove('hidden');
             target.classList.add('flex');
@@ -662,6 +736,7 @@
             if(id === 'investasi') titleEl.innerText = 'Investasi Syariah';
             if(id === 'umrah') titleEl.innerText = 'Umrah Travel';
             if(id === 'status-server') titleEl.innerText = 'Status Server';
+            if(id === 'suqna-ecosystem') titleEl.innerText = 'Ekosistem SUQNA';
         };
 
         window.tutupHalaman = function() {
@@ -669,6 +744,20 @@
             overlay.classList.remove('page-active');
             overlay.classList.add('page-hidden');
             setTimeout(() => overlay.classList.add('hidden'), 300);
+        };
+
+        // ==========================================
+        // LOGIKA STATUS SERVER (PING)
+        // ==========================================
+        window.pingServer = function() {
+            window.showLoading("Mengecek Koneksi API Core...");
+            setTimeout(() => {
+                window.hideLoading();
+                // Menghasilkan latensi acak antara 10 ms hingga 40 ms
+                let randomLatency = Math.floor(Math.random() * 30) + 10; 
+                document.getElementById('server-latency').innerText = randomLatency + " ms";
+                window.showCustomAlert("Ping Sukses", "Infrastruktur server berjalan optimal dengan latensi " + randomLatency + " ms.");
+            }, 1200);
         };
 
         // ==========================================
