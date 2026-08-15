@@ -50,62 +50,68 @@
     <!-- BINGKAI HP DINAMIS -->
     <div class="w-full h-full md:w-[95%] md:max-w-[420px] md:h-[95dvh] md:max-h-[850px] md:aspect-[9/19] md:rounded-[2.5rem] md:border-[6px] md:border-slate-800 bg-gradient-to-br from-[#0f172a] via-[#020617] to-emerald-950 relative overflow-hidden md:shadow-[0_0_50px_rgba(16,185,129,0.1)] flex flex-col transition-all duration-300">
 
-        <!-- ==================== LAYAR LOGIN / AUTENTIKASI ==================== -->
-        <div id="auth-screen" class="absolute inset-0 z-[200] bg-gradient-to-b from-[#0f172a] to-[#020617] flex flex-col justify-center items-center p-6 page-transition">
-            <div class="mb-10 text-center">
-                <div class="w-20 h-20 bg-white/10 rounded-3xl mx-auto flex items-center justify-center mb-4 border border-white/20 shadow-lg backdrop-blur-sm">
-                    <i class="fa-solid fa-wallet text-4xl text-emerald-400"></i>
-                </div>
-                <h1 class="text-4xl font-black italic tracking-tight flex justify-center items-center" style="filter: drop-shadow(1px 2px 0px rgba(0,0,0,0.5));">
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Bisa</span>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-yellow-400">Pay</span>
-                </h1>
-                <p class="text-gray-400 text-xs mt-2 font-medium tracking-wide">Super App Serba Bisa</p>
-            </div>
-            
-            <div class="w-full max-w-sm bg-white p-7 rounded-[2rem] shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-cyan-500"></div>
-                <h2 id="auth-title" class="text-xl font-bold text-gray-800 mb-6 text-center mt-2">Masuk ke Akun</h2>
+        <!-- ==================== LAYAR LOGIN / AUTENTIKASI (BISA DI-SCROLL) ==================== -->
+        <div id="auth-screen" class="absolute inset-0 z-[200] bg-gradient-to-b from-[#0f172a] to-[#020617] overflow-y-auto page-transition flex flex-col">
+            <div class="min-h-full w-full flex flex-col justify-center items-center p-6 py-12 my-auto">
                 
-                <div class="space-y-4 mb-5">
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Alamat Email</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-envelope absolute left-4 top-[14px] text-gray-400"></i>
-                            <input type="email" id="auth-email" placeholder="nama@email.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-11 pr-4 text-sm font-semibold text-gray-800 outline-none focus:border-emerald-500 transition-colors">
+                <!-- Logo Header -->
+                <div class="mb-10 text-center shrink-0 mt-4">
+                    <div class="w-20 h-20 bg-white/10 rounded-3xl mx-auto flex items-center justify-center mb-4 border border-white/20 shadow-lg backdrop-blur-sm">
+                        <i class="fa-solid fa-wallet text-4xl text-emerald-400"></i>
+                    </div>
+                    <h1 class="text-4xl font-black italic tracking-tight flex justify-center items-center" style="filter: drop-shadow(1px 2px 0px rgba(0,0,0,0.5));">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Bisa</span>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-yellow-400">Pay</span>
+                    </h1>
+                    <p class="text-gray-400 text-xs mt-2 font-medium tracking-wide">Super App Serba Bisa</p>
+                </div>
+                
+                <!-- Kotak Form Auth -->
+                <div class="w-full max-w-sm bg-white p-7 rounded-[2rem] shadow-2xl relative overflow-hidden shrink-0 mb-8">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-cyan-500"></div>
+                    <h2 id="auth-title" class="text-xl font-bold text-gray-800 mb-6 text-center mt-2">Masuk ke Akun</h2>
+                    
+                    <div class="space-y-4 mb-5">
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Alamat Email</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-envelope absolute left-4 top-[14px] text-gray-400"></i>
+                                <input type="email" id="auth-email" placeholder="nama@email.com" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-11 pr-4 text-sm font-semibold text-gray-800 outline-none focus:border-emerald-500 transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Kata Sandi</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-lock absolute left-4 top-[14px] text-gray-400"></i>
+                                <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-11 pr-4 text-sm font-semibold text-gray-800 outline-none focus:border-emerald-500 transition-colors">
+                            </div>
+                        </div>
+                        <div id="auth-error-box" class="hidden bg-red-50 border border-red-100 p-3 rounded-xl text-center">
+                            <p id="auth-error" class="text-[11px] text-red-500 font-bold"></p>
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5">Kata Sandi</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-lock absolute left-4 top-[14px] text-gray-400"></i>
-                            <input type="password" id="auth-password" placeholder="••••••••" class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pl-11 pr-4 text-sm font-semibold text-gray-800 outline-none focus:border-emerald-500 transition-colors">
-                        </div>
+                    
+                    <button id="btn-login" onclick="window.handleLogin()" class="w-full bg-emerald-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md hover:bg-emerald-700 active:scale-95 transition-transform mb-3">Masuk Sekarang</button>
+                    <button id="btn-register" onclick="window.handleRegister()" class="w-full bg-blue-50 text-blue-600 text-sm font-bold py-3.5 rounded-xl border border-blue-100 hover:bg-blue-100 active:scale-95 transition-transform hidden mb-3">Daftar Akun Baru</button>
+                    
+                    <div class="flex items-center my-4">
+                        <div class="flex-grow border-t border-gray-200"></div>
+                        <span class="flex-shrink-0 mx-4 text-gray-400 text-[10px] font-bold uppercase">ATAU</span>
+                        <div class="flex-grow border-t border-gray-200"></div>
                     </div>
-                    <div id="auth-error-box" class="hidden bg-red-50 border border-red-100 p-3 rounded-xl text-center">
-                        <p id="auth-error" class="text-[11px] text-red-500 font-bold"></p>
+
+                    <!-- Tombol Lanjutkan dengan Google -->
+                    <button onclick="window.handleGoogleLogin()" class="w-full bg-white border border-gray-200 text-gray-700 text-sm font-bold py-3.5 rounded-xl shadow-sm hover:bg-gray-50 active:scale-95 transition-transform mb-2 flex items-center justify-center gap-3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5">
+                        Lanjutkan dengan Google
+                    </button>
+
+                    <div class="text-center mt-5 border-t border-gray-100 pt-4">
+                        <p class="text-xs text-gray-500 font-medium" id="auth-toggle-text">Belum punya akun?</p>
+                        <button onclick="window.toggleAuthMode()" id="auth-toggle-btn" class="text-sm font-bold text-emerald-600 hover:text-emerald-700 mt-1 active:scale-95 transition-transform">Daftar dengan Email</button>
                     </div>
-                </div>
-                
-                <button id="btn-login" onclick="window.handleLogin()" class="w-full bg-emerald-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md hover:bg-emerald-700 active:scale-95 transition-transform mb-3">Masuk Sekarang</button>
-                <button id="btn-register" onclick="window.handleRegister()" class="w-full bg-blue-50 text-blue-600 text-sm font-bold py-3.5 rounded-xl border border-blue-100 hover:bg-blue-100 active:scale-95 transition-transform hidden mb-3">Daftar Akun Baru</button>
-                
-                <div class="flex items-center my-4">
-                    <div class="flex-grow border-t border-gray-200"></div>
-                    <span class="flex-shrink-0 mx-4 text-gray-400 text-[10px] font-bold uppercase">ATAU</span>
-                    <div class="flex-grow border-t border-gray-200"></div>
                 </div>
 
-                <!-- Tombol Lanjutkan dengan Google -->
-                <button onclick="window.handleGoogleLogin()" class="w-full bg-white border border-gray-200 text-gray-700 text-sm font-bold py-3.5 rounded-xl shadow-sm hover:bg-gray-50 active:scale-95 transition-transform mb-2 flex items-center justify-center gap-3">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5">
-                    Lanjutkan dengan Google
-                </button>
-
-                <div class="text-center mt-5 border-t border-gray-100 pt-4">
-                    <p class="text-xs text-gray-500 font-medium" id="auth-toggle-text">Belum punya akun?</p>
-                    <button onclick="window.toggleAuthMode()" id="auth-toggle-btn" class="text-sm font-bold text-emerald-600 hover:text-emerald-700 mt-1 active:scale-95 transition-transform">Daftar dengan Email</button>
-                </div>
             </div>
         </div>
 
@@ -122,6 +128,7 @@
         <div id="home-screen" class="page-transition page-hidden h-full w-full">
             <div class="bg-gradient-to-b from-[#0f172a] to-[#1e293b] rounded-b-[2rem] pt-6 pb-12 px-5 relative overflow-hidden shadow-md shrink-0 border-b border-white/5">
                 
+                <!-- Header -->
                 <div class="relative z-10 flex justify-between items-center mb-6">
                     <div class="flex items-center gap-2.5">
                         <div class="bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/10 shadow-sm">
@@ -147,6 +154,7 @@
                     </div>
                 </div>
 
+                <!-- Premium Balance Card -->
                 <div class="relative z-10 bg-gradient-to-br from-[#0f766e] to-[#047857] rounded-[1.25rem] p-5 text-white shadow-lg shadow-teal-900/30 border border-white/10">
                     <div class="flex justify-between items-center mb-3">
                         <div class="flex items-center gap-2 text-emerald-50 text-xs font-medium">
@@ -353,6 +361,7 @@
                 <div class="w-16 h-16 bg-yellow-50 rounded-full flex items-center justify-center mb-4 border border-yellow-100 shadow-sm text-3xl text-yellow-600"><i class="fa-solid fa-coins"></i></div>
                 <h2 class="text-xl font-bold text-gray-800 mb-1">Investasi Syariah</h2>
                 <p class="text-gray-500 text-xs mb-5">Mulai perjalanan finansial Anda dengan instrumen bebas riba.</p>
+
                 <div class="w-full bg-gradient-to-r from-amber-500 to-yellow-600 rounded-2xl p-4 text-left text-white mb-6 shadow-md relative overflow-hidden">
                     <i class="fa-solid fa-chart-line absolute -right-4 -bottom-4 text-6xl opacity-20"></i>
                     <p class="text-[10px] font-medium opacity-90 mb-1">Total Portofolio Saya</p>
@@ -678,7 +687,186 @@
 
     <script type="module">
         // ==========================================
-        // UTILITIES UTAMA (PENTING AGAR TIDAK ERROR)
+        // 1. INTEGRASI FIREBASE SDK (LOGIN & GOOGLE)
+        // ==========================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            signInWithEmailAndPassword, 
+            createUserWithEmailAndPassword, 
+            signOut,
+            GoogleAuthProvider,
+            signInWithPopup 
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKqzCTA8o8u5rT5l0_02o8h3JPZleaNow",
+            authDomain: "bisapay-d6e55.firebaseapp.com",
+            projectId: "bisapay-d6e55",
+            storageBucket: "bisapay-d6e55.firebasestorage.app",
+            messagingSenderId: "16383945985",
+            appId: "1:16383945985:web:563e9656d579b407f4bf00"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // UI Logic untuk Form Login/Register
+        window.isRegisterMode = false;
+        window.toggleAuthMode = function() {
+            window.isRegisterMode = !window.isRegisterMode;
+            document.getElementById('auth-error-box').classList.add('hidden');
+            
+            if (window.isRegisterMode) {
+                document.getElementById('auth-title').innerText = "Buat Akun Baru";
+                document.getElementById('btn-login').classList.add('hidden');
+                document.getElementById('btn-register').classList.remove('hidden');
+                document.getElementById('auth-toggle-text').innerText = "Sudah punya akun?";
+                document.getElementById('auth-toggle-btn').innerText = "Masuk dengan Email";
+            } else {
+                document.getElementById('auth-title').innerText = "Masuk ke Akun";
+                document.getElementById('btn-login').classList.remove('hidden');
+                document.getElementById('btn-register').classList.add('hidden');
+                document.getElementById('auth-toggle-text').innerText = "Belum punya akun?";
+                document.getElementById('auth-toggle-btn').innerText = "Daftar dengan Email";
+            }
+        };
+
+        window.handleLogin = async function() {
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value;
+            const errorBox = document.getElementById('auth-error-box');
+            const errorText = document.getElementById('auth-error');
+            
+            if(!email || !password) {
+                errorText.innerText = "Email dan kata sandi wajib diisi!";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            
+            window.showLoading("Mencocokkan Kunci Brankas...");
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                errorBox.classList.add('hidden');
+            } catch(error) {
+                window.hideLoading();
+                errorText.innerText = "Gagal Masuk: Cek kembali Email atau Sandi Anda.";
+                errorBox.classList.remove('hidden');
+            }
+        };
+
+        window.handleRegister = async function() {
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value;
+            const errorBox = document.getElementById('auth-error-box');
+            const errorText = document.getElementById('auth-error');
+            
+            if(!email || password.length < 6) {
+                errorText.innerText = "Email wajib valid & sandi minimal 6 karakter.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            
+            window.showLoading("Mendaftarkan Akun Baru...");
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                errorBox.classList.add('hidden');
+            } catch(error) {
+                window.hideLoading();
+                errorText.innerText = "Gagal Daftar: Email mungkin sudah dipakai.";
+                errorBox.classList.remove('hidden');
+            }
+        };
+
+        window.handleGoogleLogin = async function() {
+            window.showLoading("Menghubungkan ke Google...");
+            const errorBox = document.getElementById('auth-error-box');
+            const errorText = document.getElementById('auth-error');
+            
+            try {
+                await signInWithPopup(auth, googleProvider);
+                errorBox.classList.add('hidden');
+            } catch(error) {
+                window.hideLoading();
+                errorText.innerText = "Gagal masuk. Pastikan Pop-up diizinkan browser.";
+                errorBox.classList.remove('hidden');
+                console.error(error);
+            }
+        };
+
+        window.handleLogout = async function() {
+            window.closeModal('profileModal');
+            window.showLoading("Mengamankan Data & Keluar...");
+            try {
+                await signOut(auth);
+                window.currentBalance = 0;
+                window.transactions = [];
+                window.totalPortofolio = 0;
+                window.updateBalanceDisplay();
+                window.renderTransactions();
+                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
+            } catch(error) {
+                window.hideLoading();
+                window.showCustomAlert("Error", "Gagal keluar dari akun.");
+            }
+        };
+
+        // Memantau Status Login (Pintu Gerbang Utama)
+        onAuthStateChanged(auth, (user) => {
+            window.hideLoading();
+            const authScreen = document.getElementById('auth-screen');
+            const homeScreen = document.getElementById('home-screen');
+            
+            if (user) {
+                authScreen.classList.remove('page-active');
+                authScreen.classList.add('page-hidden');
+                homeScreen.classList.remove('page-hidden');
+                homeScreen.classList.add('page-active');
+                
+                window.currentUser = user;
+                
+                const profileUid = document.getElementById('profile-uid');
+                const profileName = document.getElementById('profile-modal-name');
+                const avatarBtn = document.getElementById('user-avatar');
+                const avatarIconBtn = document.getElementById('user-avatar-icon');
+                const avatarModal = document.getElementById('profile-modal-avatar');
+                const avatarModalIcon = document.getElementById('profile-modal-icon');
+                
+                if(profileUid) profileUid.innerText = user.email;
+                if(user.displayName && profileName) profileName.innerText = user.displayName;
+                
+                if(user.photoURL) {
+                    if(avatarBtn) { avatarBtn.src = user.photoURL; avatarBtn.classList.remove('hidden'); avatarIconBtn.classList.add('hidden'); }
+                    if(avatarModal) { avatarModal.src = user.photoURL; avatarModal.classList.remove('hidden'); avatarModalIcon.classList.add('hidden'); }
+                } else {
+                    if(avatarBtn) { avatarBtn.classList.add('hidden'); avatarIconBtn.classList.remove('hidden'); }
+                    if(avatarModal) { avatarModal.classList.add('hidden'); avatarModalIcon.classList.remove('hidden'); }
+                }
+                
+                window.currentBalance = CloudDatabaseService.getBalance() || 0;
+                window.transactions = CloudDatabaseService.getTransactions() || [];
+                window.totalPortofolio = localStorage.getItem('bisapay_portofolio') ? parseInt(localStorage.getItem('bisapay_portofolio')) : 0;
+                
+                window.updateBalanceDisplay();
+                window.renderTransactions();
+                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
+                window.setServerStatus('connected');
+                
+            } else {
+                authScreen.classList.remove('page-hidden');
+                authScreen.classList.add('page-active');
+                homeScreen.classList.remove('page-active');
+                homeScreen.classList.add('page-hidden');
+                
+                window.currentUser = null;
+                document.getElementById('auth-password').value = ''; 
+            }
+        });
+
+        // ==========================================
+        // UTILITIES UTAMA
         // ==========================================
         window.showLoading = function(text) {
             document.getElementById('serverLoadingText').innerText = text || "Memproses...";
@@ -819,184 +1007,6 @@
                 window.updateBalanceDisplay();
             } catch(e) { console.error("Gagal mencatat transaksi", e); }
         };
-
-        // ==========================================
-        // INTEGRASI FIREBASE SDK (LOGIN & GOOGLE)
-        // ==========================================
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { 
-            getAuth, 
-            onAuthStateChanged, 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword, 
-            signOut,
-            GoogleAuthProvider,
-            signInWithPopup 
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDKqzCTA8o8u5rT5l0_02o8h3JPZleaNow",
-            authDomain: "bisapay-d6e55.firebaseapp.com",
-            projectId: "bisapay-d6e55",
-            storageBucket: "bisapay-d6e55.firebasestorage.app",
-            messagingSenderId: "16383945985",
-            appId: "1:16383945985:web:563e9656d579b407f4bf00"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        window.isRegisterMode = false;
-        window.toggleAuthMode = function() {
-            window.isRegisterMode = !window.isRegisterMode;
-            document.getElementById('auth-error-box').classList.add('hidden');
-            
-            if (window.isRegisterMode) {
-                document.getElementById('auth-title').innerText = "Buat Akun Baru";
-                document.getElementById('btn-login').classList.add('hidden');
-                document.getElementById('btn-register').classList.remove('hidden');
-                document.getElementById('auth-toggle-text').innerText = "Sudah punya akun?";
-                document.getElementById('auth-toggle-btn').innerText = "Masuk dengan Email";
-            } else {
-                document.getElementById('auth-title').innerText = "Masuk ke Akun";
-                document.getElementById('btn-login').classList.remove('hidden');
-                document.getElementById('btn-register').classList.add('hidden');
-                document.getElementById('auth-toggle-text').innerText = "Belum punya akun?";
-                document.getElementById('auth-toggle-btn').innerText = "Daftar dengan Email";
-            }
-        };
-
-        window.handleLogin = async function() {
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value;
-            const errorBox = document.getElementById('auth-error-box');
-            const errorText = document.getElementById('auth-error');
-            
-            if(!email || !password) {
-                errorText.innerText = "Email dan kata sandi wajib diisi!";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            
-            window.showLoading("Mencocokkan Kunci Brankas...");
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal Masuk: Cek kembali Email atau Sandi Anda.";
-                errorBox.classList.remove('hidden');
-            }
-        };
-
-        window.handleRegister = async function() {
-            const email = document.getElementById('auth-email').value.trim();
-            const password = document.getElementById('auth-password').value;
-            const errorBox = document.getElementById('auth-error-box');
-            const errorText = document.getElementById('auth-error');
-            
-            if(!email || password.length < 6) {
-                errorText.innerText = "Email wajib valid & sandi minimal 6 karakter.";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            
-            window.showLoading("Mendaftarkan Akun Baru...");
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal Daftar: Email mungkin sudah dipakai.";
-                errorBox.classList.remove('hidden');
-            }
-        };
-
-        window.handleGoogleLogin = async function() {
-            window.showLoading("Menghubungkan ke Google...");
-            const errorBox = document.getElementById('auth-error-box');
-            const errorText = document.getElementById('auth-error');
-            
-            try {
-                await signInWithPopup(auth, googleProvider);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal masuk. Pastikan Pop-up diizinkan browser.";
-                errorBox.classList.remove('hidden');
-                console.error(error);
-            }
-        };
-
-        window.handleLogout = async function() {
-            window.closeModal('profileModal');
-            window.showLoading("Mengamankan Data & Keluar...");
-            try {
-                await signOut(auth);
-                window.currentBalance = 0;
-                window.transactions = [];
-                window.totalPortofolio = 0;
-                window.updateBalanceDisplay();
-                window.renderTransactions();
-                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
-            } catch(error) {
-                window.hideLoading();
-                window.showCustomAlert("Error", "Gagal keluar dari akun.");
-            }
-        };
-
-        // PINTU GERBANG UTAMA (Mengecek jika user sudah login)
-        onAuthStateChanged(auth, (user) => {
-            window.hideLoading();
-            const authScreen = document.getElementById('auth-screen');
-            const homeScreen = document.getElementById('home-screen');
-            
-            if (user) {
-                authScreen.classList.remove('page-active');
-                authScreen.classList.add('page-hidden');
-                homeScreen.classList.remove('page-hidden');
-                homeScreen.classList.add('page-active');
-                
-                window.currentUser = user;
-                
-                const profileUid = document.getElementById('profile-uid');
-                const profileName = document.getElementById('profile-modal-name');
-                const avatarBtn = document.getElementById('user-avatar');
-                const avatarIconBtn = document.getElementById('user-avatar-icon');
-                const avatarModal = document.getElementById('profile-modal-avatar');
-                const avatarModalIcon = document.getElementById('profile-modal-icon');
-                
-                if(profileUid) profileUid.innerText = user.email;
-                if(user.displayName && profileName) profileName.innerText = user.displayName;
-                
-                if(user.photoURL) {
-                    if(avatarBtn) { avatarBtn.src = user.photoURL; avatarBtn.classList.remove('hidden'); avatarIconBtn.classList.add('hidden'); }
-                    if(avatarModal) { avatarModal.src = user.photoURL; avatarModal.classList.remove('hidden'); avatarModalIcon.classList.add('hidden'); }
-                } else {
-                    if(avatarBtn) { avatarBtn.classList.add('hidden'); avatarIconBtn.classList.remove('hidden'); }
-                    if(avatarModal) { avatarModal.classList.add('hidden'); avatarModalIcon.classList.remove('hidden'); }
-                }
-                
-                window.currentBalance = CloudDatabaseService.getBalance() || 0;
-                window.transactions = CloudDatabaseService.getTransactions() || [];
-                window.totalPortofolio = localStorage.getItem('bisapay_portofolio') ? parseInt(localStorage.getItem('bisapay_portofolio')) : 0;
-                
-                window.updateBalanceDisplay();
-                window.renderTransactions();
-                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
-                window.setServerStatus('connected');
-                
-            } else {
-                authScreen.classList.remove('page-hidden');
-                authScreen.classList.add('page-active');
-                homeScreen.classList.remove('page-active');
-                homeScreen.classList.add('page-hidden');
-                
-                window.currentUser = null;
-                document.getElementById('auth-password').value = ''; 
-            }
-        });
 
         // ==========================================
         // FUNGSI LAINNYA (NAVIGASI, INVESTASI, ZISWAF, PPOB)
