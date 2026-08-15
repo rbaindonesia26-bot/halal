@@ -54,7 +54,7 @@
         <div id="auth-screen" class="absolute inset-0 z-[200] bg-gradient-to-b from-[#0f172a] to-[#020617] overflow-y-auto page-transition flex flex-col">
             <div class="min-h-full w-full flex flex-col justify-center items-center p-6 py-10 my-auto">
                 
-                <!-- Logo Header (JARAK SUDAH DIPERDEKAT) -->
+                <!-- Logo Header -->
                 <div class="mb-6 text-center shrink-0 mt-2">
                     <div class="w-20 h-20 bg-white/10 rounded-3xl mx-auto flex items-center justify-center mb-2 border border-white/20 shadow-lg backdrop-blur-sm overflow-hidden p-1.5">
                         <img src="https://i.ibb.co.com/Xfvt66xY/ENSIKLOPEDIA-34.png" alt="Logo BisaPay" class="w-full h-full object-contain">
@@ -111,7 +111,6 @@
                         <button onclick="window.toggleAuthMode()" id="auth-toggle-btn" class="text-sm font-bold text-emerald-600 hover:text-emerald-700 mt-1 active:scale-95 transition-transform">Daftar dengan Email</button>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -128,7 +127,7 @@
         <div id="home-screen" class="page-transition page-hidden h-full w-full">
             <div class="bg-gradient-to-b from-[#0f172a] to-[#1e293b] rounded-b-[2rem] pt-6 pb-12 px-5 relative overflow-hidden shadow-md shrink-0 border-b border-white/5">
                 
-                <!-- Header Atas (Logo Kecil) -->
+                <!-- Header Atas -->
                 <div class="relative z-10 flex justify-between items-center mb-6">
                     <div class="flex items-center gap-2.5">
                         <div class="bg-white/10 p-1.5 rounded-xl backdrop-blur-sm border border-white/10 shadow-sm p-1">
@@ -168,8 +167,8 @@
                     
                     <div class="flex justify-between items-end">
                         <div>
-                            <div id="wallet-balance" class="text-2xl font-bold tracking-tight">Rp ••••••••</div>
-                            <p class="text-[10px] text-emerald-100/80 mt-1 font-medium"><i class="fa-solid fa-shield-halved text-emerald-300 mr-1 opacity-80"></i> Firebase Secured</p>
+                            <div id="wallet-balance" class="text-2xl font-bold tracking-tight transition-all duration-300">Rp 0</div>
+                            <p class="text-[10px] text-emerald-100/80 mt-1 font-medium"><i class="fa-solid fa-cloud text-emerald-300 mr-1 opacity-80"></i> Cloud Firestore Sync</p>
                         </div>
                         <button onclick="window.toggleBalanceVisibility()" id="eye-btn" class="text-white/70 hover:text-white p-2 text-sm transition-colors"><i class="fa-solid fa-eye-slash"></i></button>
                     </div>
@@ -261,7 +260,6 @@
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -497,7 +495,41 @@
         </div>
 
         <!-- ==================== MODALS UMUM ==================== -->
-        <div id="alertModal" class="modal-fade absolute inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        
+        <!-- PIN Modal (Fitur Baru) -->
+        <div id="pinModal" class="modal-fade absolute inset-0 z-[150] flex items-end justify-center bg-black/80 backdrop-blur-sm">
+            <div class="pop-scale bg-white w-full max-w-md rounded-t-[2rem] p-6 pb-8 flex flex-col items-center shadow-2xl">
+                <div class="w-12 h-1.5 bg-gray-200 rounded-full mb-6"></div>
+                <h2 class="text-lg font-bold text-gray-800 mb-1">Masukkan PIN BisaPay</h2>
+                <p class="text-xs text-gray-500 mb-6">Untuk demo, masukkan angka: <span class="font-bold text-emerald-600">123456</span></p>
+                
+                <div class="flex gap-4 mb-8" id="pin-indicators">
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                    <div class="w-4 h-4 rounded-full bg-gray-200 pin-dot transition-colors"></div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-x-12 gap-y-6 w-full max-w-[260px]">
+                    <button onclick="window.pressPin('1')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">1</button>
+                    <button onclick="window.pressPin('2')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">2</button>
+                    <button onclick="window.pressPin('3')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">3</button>
+                    <button onclick="window.pressPin('4')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">4</button>
+                    <button onclick="window.pressPin('5')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">5</button>
+                    <button onclick="window.pressPin('6')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">6</button>
+                    <button onclick="window.pressPin('7')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">7</button>
+                    <button onclick="window.pressPin('8')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">8</button>
+                    <button onclick="window.pressPin('9')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">9</button>
+                    <button onclick="window.closeModal('pinModal')" class="w-14 h-14 rounded-full text-lg font-bold text-gray-400 hover:text-gray-600 active:scale-95 transition-all"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="window.pressPin('0')" class="w-14 h-14 rounded-full bg-gray-50 text-xl font-bold text-gray-800 hover:bg-gray-100 active:bg-gray-200 active:scale-95 transition-all">0</button>
+                    <button onclick="window.deletePin()" class="w-14 h-14 rounded-full text-lg font-bold text-gray-500 hover:text-gray-700 active:scale-95 transition-all"><i class="fa-solid fa-delete-left"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="alertModal" class="modal-fade absolute inset-0 z-[210] flex items-center justify-center bg-black/60 backdrop-blur-sm">
             <div class="pop-scale bg-white w-10/12 max-w-xs rounded-2xl p-6 flex flex-col items-center text-center shadow-xl">
                 <i class="fa-solid fa-circle-exclamation text-3xl text-emerald-500 mb-4"></i>
                 <h2 id="alert-title" class="text-base font-bold text-gray-800 mb-2">Pemberitahuan</h2>
@@ -580,7 +612,7 @@
                         <input type="number" id="transfer-nominal" placeholder="50000" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 outline-none">
                     </div>
                 </div>
-                <button onclick="window.executeTransfer()" class="w-full bg-emerald-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md">Transfer Sekarang</button>
+                <button onclick="window.executeTransfer()" class="w-full bg-emerald-600 text-white text-sm font-bold py-3.5 rounded-xl shadow-md">Lanjutkan</button>
             </div>
         </div>
 
@@ -686,18 +718,11 @@
 
     <script type="module">
         // ==========================================
-        // 1. INTEGRASI FIREBASE SDK (LOGIN & GOOGLE)
+        // 1. INTEGRASI FIREBASE SDK (LOGIN & FIRESTORE)
         // ==========================================
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { 
-            getAuth, 
-            onAuthStateChanged, 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword, 
-            signOut,
-            GoogleAuthProvider,
-            signInWithPopup 
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, arrayUnion } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDKqzCTA8o8u5rT5l0_02o8h3JPZleaNow",
@@ -710,14 +735,14 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
+        let unsubscribeUser = null; 
 
-        // UI Logic untuk Form Login/Register
         window.isRegisterMode = false;
         window.toggleAuthMode = function() {
             window.isRegisterMode = !window.isRegisterMode;
             document.getElementById('auth-error-box').classList.add('hidden');
-            
             if (window.isRegisterMode) {
                 document.getElementById('auth-title').innerText = "Buat Akun Baru";
                 document.getElementById('btn-login').classList.add('hidden');
@@ -738,22 +763,10 @@
             const password = document.getElementById('auth-password').value;
             const errorBox = document.getElementById('auth-error-box');
             const errorText = document.getElementById('auth-error');
-            
-            if(!email || !password) {
-                errorText.innerText = "Email dan kata sandi wajib diisi!";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            
+            if(!email || !password) { errorText.innerText = "Email dan kata sandi wajib diisi!"; errorBox.classList.remove('hidden'); return; }
             window.showLoading("Mencocokkan Kunci Brankas...");
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal Masuk: Cek kembali Email atau Sandi Anda.";
-                errorBox.classList.remove('hidden');
-            }
+            try { await signInWithEmailAndPassword(auth, email, password); errorBox.classList.add('hidden'); } 
+            catch(error) { window.hideLoading(); errorText.innerText = "Gagal Masuk: Cek kembali Email atau Sandi Anda."; errorBox.classList.remove('hidden'); }
         };
 
         window.handleRegister = async function() {
@@ -761,60 +774,27 @@
             const password = document.getElementById('auth-password').value;
             const errorBox = document.getElementById('auth-error-box');
             const errorText = document.getElementById('auth-error');
-            
-            if(!email || password.length < 6) {
-                errorText.innerText = "Email wajib valid & sandi minimal 6 karakter.";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            
+            if(!email || password.length < 6) { errorText.innerText = "Email wajib valid & sandi minimal 6 karakter."; errorBox.classList.remove('hidden'); return; }
             window.showLoading("Mendaftarkan Akun Baru...");
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal Daftar: Email mungkin sudah dipakai.";
-                errorBox.classList.remove('hidden');
-            }
+            try { await createUserWithEmailAndPassword(auth, email, password); errorBox.classList.add('hidden'); } 
+            catch(error) { window.hideLoading(); errorText.innerText = "Gagal Daftar: Email mungkin sudah dipakai."; errorBox.classList.remove('hidden'); }
         };
 
         window.handleGoogleLogin = async function() {
             window.showLoading("Menghubungkan ke Google...");
             const errorBox = document.getElementById('auth-error-box');
             const errorText = document.getElementById('auth-error');
-            
-            try {
-                await signInWithPopup(auth, googleProvider);
-                errorBox.classList.add('hidden');
-            } catch(error) {
-                window.hideLoading();
-                errorText.innerText = "Gagal masuk. Pastikan Pop-up diizinkan browser.";
-                errorBox.classList.remove('hidden');
-                console.error(error);
-            }
+            try { await signInWithPopup(auth, googleProvider); errorBox.classList.add('hidden'); } 
+            catch(error) { window.hideLoading(); errorText.innerText = "Gagal masuk. Pastikan Pop-up diizinkan browser."; errorBox.classList.remove('hidden'); console.error(error); }
         };
 
         window.handleLogout = async function() {
             window.closeModal('profileModal');
             window.showLoading("Mengamankan Data & Keluar...");
-            try {
-                await signOut(auth);
-                window.currentBalance = 0;
-                window.transactions = [];
-                window.totalPortofolio = 0;
-                window.updateBalanceDisplay();
-                window.renderTransactions();
-                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
-            } catch(error) {
-                window.hideLoading();
-                window.showCustomAlert("Error", "Gagal keluar dari akun.");
-            }
+            try { await signOut(auth); } catch(error) { window.hideLoading(); window.showCustomAlert("Error", "Gagal keluar dari akun."); }
         };
 
-        // Memantau Status Login (Pintu Gerbang Utama)
-        onAuthStateChanged(auth, (user) => {
-            window.hideLoading();
+        onAuthStateChanged(auth, async (user) => {
             const authScreen = document.getElementById('auth-screen');
             const homeScreen = document.getElementById('home-screen');
             
@@ -823,7 +803,6 @@
                 authScreen.classList.add('page-hidden');
                 homeScreen.classList.remove('page-hidden');
                 homeScreen.classList.add('page-active');
-                
                 window.currentUser = user;
                 
                 const profileUid = document.getElementById('profile-uid');
@@ -835,109 +814,188 @@
                 
                 if(profileUid) profileUid.innerText = user.email;
                 if(user.displayName && profileName) profileName.innerText = user.displayName;
-                
                 if(user.photoURL) {
                     if(avatarBtn) { avatarBtn.src = user.photoURL; avatarBtn.classList.remove('hidden'); avatarIconBtn.classList.add('hidden'); }
                     if(avatarModal) { avatarModal.src = user.photoURL; avatarModal.classList.remove('hidden'); avatarModalIcon.classList.add('hidden'); }
-                } else {
-                    if(avatarBtn) { avatarBtn.classList.add('hidden'); avatarIconBtn.classList.remove('hidden'); }
-                    if(avatarModal) { avatarModal.classList.add('hidden'); avatarModalIcon.classList.remove('hidden'); }
                 }
                 
-                window.currentBalance = CloudDatabaseService.getBalance() || 0;
-                window.transactions = CloudDatabaseService.getTransactions() || [];
-                window.totalPortofolio = localStorage.getItem('bisapay_portofolio') ? parseInt(localStorage.getItem('bisapay_portofolio')) : 0;
-                
-                window.updateBalanceDisplay();
-                window.renderTransactions();
-                if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
-                window.setServerStatus('connected');
+                window.setServerStatus('connecting');
+
+                const userRef = doc(db, "users", user.uid);
+                try {
+                    const docSnap = await getDoc(userRef);
+                    if (!docSnap.exists()) await setDoc(userRef, { balance: 0, portofolio: 0, transactions: [] });
+                    
+                    unsubscribeUser = onSnapshot(userRef, (docSnapshot) => {
+                        if(docSnapshot.exists()) {
+                            const data = docSnapshot.data();
+                            window.currentBalance = data.balance || 0;
+                            window.totalPortofolio = data.portofolio || 0;
+                            window.transactions = data.transactions || [];
+                            window.transactions.sort((a, b) => b.timestamp - a.timestamp);
+                            window.updateBalanceDisplay();
+                            window.renderTransactions();
+                            if(window.updatePortofolioDisplay) window.updatePortofolioDisplay();
+                            window.setServerStatus('connected');
+                            window.hideLoading();
+                        }
+                    });
+                } catch (e) {
+                    console.error("Gagal terhubung ke Database", e);
+                    window.hideLoading();
+                    window.setServerStatus('error');
+                }
                 
             } else {
+                if(unsubscribeUser) unsubscribeUser();
                 authScreen.classList.remove('page-hidden');
                 authScreen.classList.add('page-active');
                 homeScreen.classList.remove('page-active');
                 homeScreen.classList.add('page-hidden');
                 
                 window.currentUser = null;
-                document.getElementById('auth-password').value = ''; 
+                document.getElementById('auth-password').value = '';
+                window.currentBalance = 0;
+                window.transactions = [];
+                window.totalPortofolio = 0;
+                window.hideLoading();
             }
         });
 
         // ==========================================
-        // UTILITIES UTAMA
+        // 2. LOGIKA PIN 6-DIGIT (FITUR BARU)
         // ==========================================
-        window.showLoading = function(text) {
-            document.getElementById('serverLoadingText').innerText = text || "Memproses...";
-            document.getElementById('serverLoadingOverlay').classList.remove('hidden');
+        window.currentPin = "";
+        window.pendingTransactionAction = null;
+
+        window.openPinModal = function(actionCallback) {
+            window.currentPin = "";
+            window.updatePinDots();
+            window.pendingTransactionAction = actionCallback; // Menyimpan perintah transaksi
+            window.toggleModal('pinModal');
         };
 
-        window.hideLoading = function() {
-            document.getElementById('serverLoadingOverlay').classList.add('hidden');
+        window.pressPin = function(num) {
+            if(window.currentPin.length < 6) {
+                window.currentPin += num;
+                window.updatePinDots();
+                
+                // Jika sudah 6 digit, otomatis verifikasi
+                if(window.currentPin.length === 6) {
+                    setTimeout(() => window.verifyPin(), 200);
+                }
+            }
         };
 
-        window.showCustomAlert = function(title, pesan) {
-            document.getElementById('alert-title').innerText = title || "Pemberitahuan";
-            document.getElementById('alert-text').innerText = pesan;
-            document.getElementById('alertModal').classList.add('active');
+        window.deletePin = function() {
+            if(window.currentPin.length > 0) {
+                window.currentPin = window.currentPin.slice(0, -1);
+                window.updatePinDots();
+            }
         };
 
+        window.updatePinDots = function() {
+            const dots = document.querySelectorAll('.pin-dot');
+            dots.forEach((dot, index) => {
+                if(index < window.currentPin.length) {
+                    dot.classList.remove('bg-gray-200');
+                    dot.classList.add('bg-emerald-500');
+                } else {
+                    dot.classList.remove('bg-emerald-500');
+                    dot.classList.add('bg-gray-200');
+                }
+            });
+        };
+
+        window.verifyPin = function() {
+            // Menggunakan 123456 sebagai PIN rahasia untuk versi Demo
+            if(window.currentPin === "123456") {
+                window.closeModal('pinModal');
+                // Mengeksekusi transaksi yang tadi ditahan
+                if(window.pendingTransactionAction) {
+                    window.pendingTransactionAction();
+                    window.pendingTransactionAction = null;
+                }
+            } else {
+                window.showCustomAlert("PIN Salah", "PIN yang Anda masukkan salah. Gunakan angka 123456 untuk demo.");
+                window.currentPin = "";
+                window.updatePinDots();
+            }
+        };
+
+
+        // ==========================================
+        // 3. CLOUD DATABASE HELPER
+        // ==========================================
+        window.currentBalance = 0;
+        window.isBalanceVisible = true;
+        window.transactions = [];
+        window.selectedPPOBItem = null;
+        window.pendingTransaction = null; 
+
+        window.addTransactionRecord = async function(title, type, amount) {
+            if(!window.currentUser) return;
+            try {
+                const tx = { title, type, amount, date: window.getFormattedDate(), timestamp: Date.now() };
+                const userRef = doc(db, "users", window.currentUser.uid);
+                await updateDoc(userRef, {
+                    balance: window.currentBalance,
+                    portofolio: window.totalPortofolio,
+                    transactions: arrayUnion(tx)
+                });
+            } catch(e) { console.error("Gagal mencatat transaksi ke Cloud", e); }
+        };
+
+        window.clearHistory = async function() {
+            if(!window.currentUser) return;
+            window.showLoading("Menghapus Data dari Server Cloud...");
+            try {
+                const userRef = doc(db, "users", window.currentUser.uid);
+                window.currentBalance = 0;
+                window.totalPortofolio = 0;
+                await updateDoc(userRef, { balance: 0, portofolio: 0, transactions: [] });
+                
+                window.hideLoading();
+                window.closeModal('historyModal');
+                window.showCustomAlert("Database Bersih", "Seluruh saldo dan riwayat di Cloud berhasil di-reset menjadi Rp 0.");
+            } catch (error) {
+                window.hideLoading();
+                window.showCustomAlert("Error", "Gagal menghubungi server untuk menghapus data.");
+            }
+        };
+
+        // ==========================================
+        // UTILITIES
+        // ==========================================
+        window.showLoading = function(text) { document.getElementById('serverLoadingText').innerText = text || "Memproses..."; document.getElementById('serverLoadingOverlay').classList.remove('hidden'); };
+        window.hideLoading = function() { document.getElementById('serverLoadingOverlay').classList.add('hidden'); };
+        window.showCustomAlert = function(title, pesan) { document.getElementById('alert-title').innerText = title || "Pemberitahuan"; document.getElementById('alert-text').innerText = pesan; document.getElementById('alertModal').classList.add('active'); };
         window.closeModal = function(modalId) { document.getElementById(modalId).classList.remove('active'); };
-        window.toggleModal = function(modalID) {
-            const modal = document.getElementById(modalID);
-            modal.classList.contains('active') ? modal.classList.remove('active') : modal.classList.add('active');
-        };
-
-        window.getFormattedDate = function() {
-            return "Tercatat pada " + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB";
-        };
-
+        window.toggleModal = function(modalID) { const modal = document.getElementById(modalID); modal.classList.contains('active') ? modal.classList.remove('active') : modal.classList.add('active'); };
+        window.getFormattedDate = function() { return "Tercatat pada " + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + " WIB"; };
+        
         window.updateBalanceDisplay = function() {
             const el = document.getElementById('wallet-balance');
             const cta = document.getElementById('zero-balance-cta');
             if(!el) return;
-            
-            if(window.isBalanceVisible) {
-                el.innerText = 'Rp ' + window.currentBalance.toLocaleString('id-ID');
-                el.classList.remove('text-2xl');
-                el.classList.add('text-[26px]');
-            } else {
-                el.innerText = 'Rp ••••••••';
-                el.classList.add('text-2xl');
-                el.classList.remove('text-[26px]');
-            }
-            if(cta) {
-                if(window.currentBalance === 0) cta.classList.remove('hidden');
-                else cta.classList.add('hidden');
-            }
+            if(window.isBalanceVisible) { el.innerText = 'Rp ' + window.currentBalance.toLocaleString('id-ID'); el.classList.remove('text-2xl'); el.classList.add('text-[26px]'); } 
+            else { el.innerText = 'Rp ••••••••'; el.classList.add('text-2xl'); el.classList.remove('text-[26px]'); }
+            if(cta) { if(window.currentBalance === 0) cta.classList.remove('hidden'); else cta.classList.add('hidden'); }
         };
 
-        window.toggleBalanceVisibility = function() {
-            window.isBalanceVisible = !window.isBalanceVisible;
-            document.getElementById('eye-btn').innerHTML = window.isBalanceVisible ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>';
-            window.updateBalanceDisplay();
-        };
+        window.toggleBalanceVisibility = function() { window.isBalanceVisible = !window.isBalanceVisible; document.getElementById('eye-btn').innerHTML = window.isBalanceVisible ? '<i class="fa-solid fa-eye-slash"></i>' : '<i class="fa-solid fa-eye"></i>'; window.updateBalanceDisplay(); };
 
         window.renderTransactions = function() {
             const fullEl = document.getElementById('full-history-list');
-            if(window.transactions.length === 0) {
-                if(fullEl) fullEl.innerHTML = '<p class="text-xs text-gray-400 text-center py-6 font-medium">Belum ada riwayat transaksi.</p>';
-                return;
-            }
+            if(window.transactions.length === 0) { if(fullEl) fullEl.innerHTML = '<p class="text-xs text-gray-400 text-center py-6 font-medium">Belum ada riwayat transaksi.</p>'; return; }
             const createTxHTML = (tx) => `
                 <div class="flex justify-between items-center p-3.5 rounded-xl bg-gray-50 text-xs border border-gray-100 hover:bg-gray-100 transition-colors">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-full ${tx.type === 'in' ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'} flex items-center justify-center text-sm shadow-sm">
-                            <i class="fa-solid ${tx.type === 'in' ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
-                        </div>
-                        <div>
-                            <p class="font-bold text-gray-800">${tx.title}</p>
-                            <p class="text-[9px] text-gray-400 mt-0.5 font-medium">${tx.date}</p>
-                        </div>
+                        <div class="w-9 h-9 rounded-full ${tx.type === 'in' ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'} flex items-center justify-center text-sm shadow-sm"><i class="fa-solid ${tx.type === 'in' ? 'fa-arrow-down' : 'fa-arrow-up'}"></i></div>
+                        <div><p class="font-bold text-gray-800">${tx.title}</p><p class="text-[9px] text-gray-400 mt-0.5 font-medium">${tx.date}</p></div>
                     </div>
                     <span class="font-bold text-sm ${tx.type === 'in' ? 'text-emerald-600' : 'text-gray-800'}">${tx.type === 'in' ? '+' : '-'}Rp ${tx.amount.toLocaleString('id-ID')}</span>
-                </div>
-            `;
+                </div>`;
             if(fullEl) fullEl.innerHTML = window.transactions.map(createTxHTML).join('');
         };
 
@@ -946,129 +1004,46 @@
             const dot = document.getElementById('server-status-dot');
             const text = document.getElementById('server-status-text');
             if(!badge) return;
-            if (state === 'connecting') {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse";
-                text.innerText = "Menghubungkan...";
-                badge.className = "bg-white/20 text-white border border-white/20 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300";
-            } else if (state === 'connected') {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400";
-                text.innerText = "Server Terhubung";
-                badge.className = "bg-black/20 text-white border border-white/10 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300";
-            } else {
-                dot.className = "w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse";
-                text.innerText = "Server Bermasalah";
-                badge.className = "bg-red-500/20 text-red-100 border border-red-500/30 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300";
-            }
+            if (state === 'connecting') { dot.className = "w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"; text.innerText = "Menghubungkan..."; badge.className = "bg-white/20 text-white border border-white/20 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300"; } 
+            else if (state === 'connected') { dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400"; text.innerText = "Server Terhubung"; badge.className = "bg-black/20 text-white border border-white/10 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300"; } 
+            else { dot.className = "w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"; text.innerText = "Server Bermasalah"; badge.className = "bg-red-500/20 text-red-100 border border-red-500/30 px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-wide backdrop-blur-sm transition-colors duration-300"; }
         };
 
-        // ==========================================
-        // DATABASE SIMULASI
-        // ==========================================
-        class CloudDatabaseService {
-            static getBalance() {
-                let bal = localStorage.getItem('bisapay_cloud_balance');
-                return bal ? parseInt(bal) : 0;
-            }
-            static saveBalance(balance) {
-                localStorage.setItem('bisapay_cloud_balance', balance);
-            }
-            static getTransactions() {
-                let txs = localStorage.getItem('bisapay_cloud_tx');
-                return txs ? JSON.parse(txs) : [];
-            }
-            static saveTransaction(tx) {
-                let txs = this.getTransactions();
-                txs.unshift(tx);
-                localStorage.setItem('bisapay_cloud_tx', JSON.stringify(txs));
-            }
-            static clearData() {
-                localStorage.removeItem('bisapay_cloud_balance');
-                localStorage.removeItem('bisapay_cloud_tx');
-                localStorage.removeItem('bisapay_portofolio');
-            }
-        }
-
-        window.currentBalance = 0;
-        window.isBalanceVisible = true;
-        window.transactions = [];
-        window.currentUser = null;
-        window.selectedPPOBItem = null;
-        window.pendingTransaction = null; 
-
-        window.addTransactionRecord = async function(title, type, amount) {
-            try {
-                const tx = { title, type, amount, date: window.getFormattedDate(), timestamp: Date.now() };
-                CloudDatabaseService.saveTransaction(tx);
-                CloudDatabaseService.saveBalance(window.currentBalance);
-                
-                window.transactions = CloudDatabaseService.getTransactions();
-                window.renderTransactions();
-                window.updateBalanceDisplay();
-            } catch(e) { console.error("Gagal mencatat transaksi", e); }
-        };
-
-        // ==========================================
-        // FUNGSI LAINNYA (NAVIGASI, INVESTASI, ZISWAF, PPOB)
-        // ==========================================
         window.bukaHalaman = function(id) {
             const overlay = document.getElementById('halaman-overlay');
-            overlay.classList.remove('hidden', 'page-hidden');
-            overlay.classList.add('page-active');
-
-            document.getElementById('konten-ziswaf').classList.add('hidden');
-            document.getElementById('konten-investasi').classList.add('hidden');
-            document.getElementById('konten-umrah').classList.add('hidden');
-            document.getElementById('konten-status-server').classList.add('hidden');
-            document.getElementById('konten-bisapay-ecosystem').classList.add('hidden');
-            
-            document.getElementById('konten-ziswaf').classList.remove('flex');
-            document.getElementById('konten-investasi').classList.remove('flex');
-            document.getElementById('konten-umrah').classList.remove('flex');
-            document.getElementById('konten-status-server').classList.remove('flex');
-            document.getElementById('konten-bisapay-ecosystem').classList.remove('flex');
-            
-            const target = document.getElementById('konten-' + id);
-            target.classList.remove('hidden');
-            target.classList.add('flex');
-
+            overlay.classList.remove('hidden', 'page-hidden'); overlay.classList.add('page-active');
+            ['ziswaf', 'investasi', 'umrah', 'status-server', 'bisapay-ecosystem'].forEach(page => {
+                document.getElementById('konten-'+page).classList.add('hidden');
+                document.getElementById('konten-'+page).classList.remove('flex');
+            });
+            document.getElementById('konten-' + id).classList.remove('hidden');
+            document.getElementById('konten-' + id).classList.add('flex');
             const titleEl = document.getElementById('overlay-title');
-            if(id === 'ziswaf') titleEl.innerText = 'Ziswaf Donasi';
-            if(id === 'investasi') titleEl.innerText = 'Investasi Syariah';
-            if(id === 'umrah') titleEl.innerText = 'Umrah Travel';
-            if(id === 'status-server') titleEl.innerText = 'Status Server';
+            if(id === 'ziswaf') titleEl.innerText = 'Ziswaf Donasi'; if(id === 'investasi') titleEl.innerText = 'Investasi Syariah';
+            if(id === 'umrah') titleEl.innerText = 'Umrah Travel'; if(id === 'status-server') titleEl.innerText = 'Status Server';
             if(id === 'bisapay-ecosystem') titleEl.innerText = 'Ekosistem BisaPay';
         };
 
         window.tutupHalaman = function() {
             const overlay = document.getElementById('halaman-overlay');
-            overlay.classList.remove('page-active');
-            overlay.classList.add('page-hidden');
+            overlay.classList.remove('page-active'); overlay.classList.add('page-hidden');
             setTimeout(() => overlay.classList.add('hidden'), 300);
         };
 
         window.pingServer = function() {
             window.showLoading("Mengecek Koneksi API Core...");
-            setTimeout(() => {
-                window.hideLoading();
-                let randomLatency = Math.floor(Math.random() * 30) + 10; 
-                document.getElementById('server-latency').innerText = randomLatency + " ms";
-                window.showCustomAlert("Ping Sukses", "Infrastruktur server berjalan optimal dengan latensi " + randomLatency + " ms.");
-            }, 1200);
+            setTimeout(() => { window.hideLoading(); let randomLatency = Math.floor(Math.random() * 30) + 10; document.getElementById('server-latency').innerText = randomLatency + " ms"; window.showCustomAlert("Ping Sukses", "Infrastruktur server berjalan optimal dengan latensi " + randomLatency + " ms."); }, 1200);
         };
 
+        // ==========================================
+        // FITUR TRANSAKSI (MENGGUNAKAN PIN)
+        // ==========================================
         window.selectedZiswafAmount = 0;
         window.pilihNominalZiswaf = function(nominal) {
-            window.selectedZiswafAmount = nominal;
-            document.getElementById('ziswaf-custom-amount').value = nominal;
-            document.querySelectorAll('.ziswaf-nom-btn').forEach(btn => {
-                btn.classList.remove('bg-rose-500', 'text-white', 'border-rose-500');
-                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200');
-            });
+            window.selectedZiswafAmount = nominal; document.getElementById('ziswaf-custom-amount').value = nominal;
+            document.querySelectorAll('.ziswaf-nom-btn').forEach(btn => { btn.classList.remove('bg-rose-500', 'text-white', 'border-rose-500'); btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200'); });
             const activeBtn = document.getElementById('btn-nom-' + nominal);
-            if(activeBtn) {
-                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200');
-                activeBtn.classList.add('bg-rose-500', 'text-white', 'border-rose-500');
-            }
+            if(activeBtn) { activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200'); activeBtn.classList.add('bg-rose-500', 'text-white', 'border-rose-500'); }
         };
 
         window.prosesZiswafDonasi = async function() {
@@ -1080,18 +1055,21 @@
             if(window.currentBalance < nominal) return window.showCustomAlert("Saldo Kurang", "Saldo BisaPay Anda tidak mencukupi untuk melakukan donasi ini.");
 
             window.tutupHalaman();
-            window.showLoading("Menyalurkan Ziswaf...");
-
-            setTimeout(async () => {
-                window.currentBalance -= nominal;
-                await window.addTransactionRecord(`Donasi ${jenis}`, "out", nominal);
-                window.hideLoading();
-                
-                document.getElementById('pay-merchant-name').innerText = `Donasi Sukses: ${jenis}`;
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-                customInput.value = '';
-            }, 1200);
+            
+            // PANGGIL MODAL PIN DULU
+            window.openPinModal(async () => {
+                window.showLoading("Menyalurkan Ziswaf...");
+                setTimeout(async () => {
+                    window.currentBalance -= nominal;
+                    await window.addTransactionRecord(`Donasi ${jenis}`, "out", nominal);
+                    window.hideLoading();
+                    
+                    document.getElementById('pay-merchant-name').innerText = `Donasi Sukses: ${jenis}`;
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                    customInput.value = '';
+                }, 1200);
+            });
         };
 
         window.selectedInvestasiAmount = 0;
@@ -1101,17 +1079,10 @@
         };
 
         window.pilihNominalInvestasi = function(nominal) {
-            window.selectedInvestasiAmount = nominal;
-            document.getElementById('investasi-custom-amount').value = nominal;
-            document.querySelectorAll('.inv-nom-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
-                btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200');
-            });
+            window.selectedInvestasiAmount = nominal; document.getElementById('investasi-custom-amount').value = nominal;
+            document.querySelectorAll('.inv-nom-btn').forEach(btn => { btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500'); btn.classList.add('bg-white', 'text-gray-700', 'border-gray-200'); });
             const activeBtn = document.getElementById('btn-inv-' + nominal);
-            if(activeBtn) {
-                activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200');
-                activeBtn.classList.add('bg-amber-500', 'text-white', 'border-amber-500');
-            }
+            if(activeBtn) { activeBtn.classList.remove('bg-white', 'text-gray-700', 'border-gray-200'); activeBtn.classList.add('bg-amber-500', 'text-white', 'border-amber-500'); }
         };
 
         window.prosesInvestasi = async function() {
@@ -1123,21 +1094,22 @@
             if(window.currentBalance < nominal) return window.showCustomAlert("Saldo Kurang", "Saldo BisaPay Anda tidak mencukupi untuk pembelian aset ini.");
 
             window.tutupHalaman();
-            window.showLoading("Memproses Transaksi Investasi...");
-
-            setTimeout(async () => {
-                window.currentBalance -= nominal;
-                window.totalPortofolio += nominal;
-                localStorage.setItem('bisapay_portofolio', window.totalPortofolio);
-                await window.addTransactionRecord(`Beli ${jenis}`, "out", nominal);
-                window.hideLoading();
-                
-                document.getElementById('pay-merchant-name').innerText = `Pembelian Sukses: ${jenis}`;
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-                customInput.value = '';
-                window.updatePortofolioDisplay();
-            }, 1500);
+            
+            window.openPinModal(async () => {
+                window.showLoading("Memproses Transaksi Investasi...");
+                setTimeout(async () => {
+                    window.currentBalance -= nominal;
+                    window.totalPortofolio += nominal;
+                    await window.addTransactionRecord(`Beli ${jenis}`, "out", nominal);
+                    window.hideLoading();
+                    
+                    document.getElementById('pay-merchant-name').innerText = `Pembelian Sukses: ${jenis}`;
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                    customInput.value = '';
+                    window.updatePortofolioDisplay();
+                }, 1500);
+            });
         };
 
         window.umrahPax = 1;
@@ -1162,32 +1134,30 @@
             const namaPaket = selectEl.options[selectEl.selectedIndex].getAttribute('data-name');
             const totalDp = dpPerPax * window.umrahPax;
 
-            if(window.currentBalance < totalDp) return window.showCustomAlert("Saldo Kurang", `Saldo BisaPay Anda tidak mencukupi untuk membayar DP Booking Umrah sebesar Rp ${totalDp.toLocaleString('id-ID')}.`);
+            if(window.currentBalance < totalDp) return window.showCustomAlert("Saldo Kurang", `Saldo Anda tidak mencukupi untuk membayar DP Booking Umrah sebesar Rp ${totalDp.toLocaleString('id-ID')}.`);
 
             window.tutupHalaman();
-            window.showLoading("Memproses Pemesanan Umrah...");
 
-            setTimeout(async () => {
-                window.currentBalance -= totalDp;
-                await window.addTransactionRecord(`DP ${namaPaket} (${window.umrahPax} Pax)`, "out", totalDp);
-                window.hideLoading();
-                
-                document.getElementById('pay-merchant-name').innerText = `Booking Umrah: ${namaPaket} x${window.umrahPax}`;
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${totalDp.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-                
-                window.umrahPax = 1;
-                document.getElementById('umrah-pax-display').innerText = window.umrahPax;
-                selectEl.selectedIndex = 0;
-                window.hitungTotalUmrah();
-            }, 1800);
+            window.openPinModal(async () => {
+                window.showLoading("Memproses Pemesanan Umrah...");
+                setTimeout(async () => {
+                    window.currentBalance -= totalDp;
+                    await window.addTransactionRecord(`DP ${namaPaket} (${window.umrahPax} Pax)`, "out", totalDp);
+                    window.hideLoading();
+                    
+                    document.getElementById('pay-merchant-name').innerText = `Booking Umrah: ${namaPaket} x${window.umrahPax}`;
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${totalDp.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                    
+                    window.umrahPax = 1;
+                    document.getElementById('umrah-pax-display').innerText = window.umrahPax;
+                    selectEl.selectedIndex = 0;
+                    window.hitungTotalUmrah();
+                }, 1800);
+            });
         };
 
-        class ExternalAPI {
-            static async request(endpoint, payload) {
-                return new Promise(resolve => setTimeout(() => resolve({ status: 'success', data: payload }), 1200));
-            }
-        }
+        class ExternalAPI { static async request(endpoint, payload) { return new Promise(resolve => setTimeout(() => resolve({ status: 'success', data: payload }), 1200)); } }
 
         window.generateVirtualAccount = async function() {
             const amountInput = document.getElementById('topup-amount');
@@ -1199,11 +1169,9 @@
 
             window.closeModal('topUpModal');
             window.showLoading("Menghubungi Payment Gateway...");
-            
             try {
                 const vaNumber = "8800" + Math.floor(10000000 + Math.random() * 90000000);
                 await ExternalAPI.request('/api/charge', { bank, amount, vaNumber });
-                
                 window.pendingTransaction = { bank, amount, vaNumber };
                 window.hideLoading();
                 
@@ -1212,10 +1180,7 @@
                 document.getElementById('va-amount').innerText = `Rp ${amount.toLocaleString('id-ID')}`;
                 window.toggleModal('vaScreenModal');
                 amountInput.value = '';
-            } catch (error) {
-                window.hideLoading();
-                window.showCustomAlert("Error Server", "Gagal menghubungi penyedia layanan.");
-            }
+            } catch (error) { window.hideLoading(); window.showCustomAlert("Error Server", "Gagal menghubungi penyedia layanan."); }
         };
 
         window.simulateWebhookPayment = async function() {
@@ -1223,7 +1188,6 @@
             const amount = window.pendingTransaction.amount;
             window.closeModal('vaScreenModal');
             window.showLoading("Menerima Callback dari Bank...");
-
             setTimeout(async () => {
                 window.currentBalance += amount;
                 await window.addTransactionRecord(`Top Up ${window.pendingTransaction.bank} VA`, "in", amount);
@@ -1242,70 +1206,41 @@
             if(window.currentBalance < nominal) return window.showCustomAlert("Saldo Kurang", "Saldo dompet BisaPay Anda tidak mencukupi.");
 
             window.closeModal('transferModal');
-            window.showLoading("Memproses Transaksi Antar Bank...");
 
-            try {
-                const refNo = "TRX-" + Math.floor(Math.random() * 999999);
-                await ExternalAPI.request('/api/transfer', { bank, acc, nominal, refNo });
-                
-                window.currentBalance -= nominal;
-                await window.addTransactionRecord(`Transfer ke ${bank} (${acc})`, "out", nominal);
-                window.hideLoading();
-                
-                document.getElementById('pay-merchant-name').innerText = `Transfer ke ${bank} - ${acc}\nRef: ${refNo}`;
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-                document.getElementById('transfer-acc').value = '';
-                document.getElementById('transfer-nominal').value = '';
-            } catch (error) {
-                window.hideLoading();
-                window.showCustomAlert("Transfer Gagal", "Terjadi kesalahan pada jaringan bank.");
-            }
-        };
-
-        window.clearHistory = async function() {
-            window.showLoading("Menghapus Data dari Server...");
-            setTimeout(() => {
-                CloudDatabaseService.clearData();
-                window.currentBalance = 0;
-                window.transactions = [];
-                window.totalPortofolio = 0;
-                window.updatePortofolioDisplay();
-                window.renderTransactions();
-                window.updateBalanceDisplay();
-                window.hideLoading();
-                window.closeModal('historyModal');
-                window.showCustomAlert("Database Bersih", "Seluruh saldo dan riwayat berhasil di-reset menjadi Rp 0.");
-            }, 1000);
+            window.openPinModal(async () => {
+                window.showLoading("Memproses Transaksi Antar Bank...");
+                try {
+                    const refNo = "TRX-" + Math.floor(Math.random() * 999999);
+                    await ExternalAPI.request('/api/transfer', { bank, acc, nominal, refNo });
+                    
+                    window.currentBalance -= nominal;
+                    await window.addTransactionRecord(`Transfer ke ${bank} (${acc})`, "out", nominal);
+                    window.hideLoading();
+                    
+                    document.getElementById('pay-merchant-name').innerText = `Transfer ke ${bank} - ${acc}\nRef: ${refNo}`;
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${nominal.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                    document.getElementById('transfer-acc').value = '';
+                    document.getElementById('transfer-nominal').value = '';
+                } catch (error) {
+                    window.hideLoading();
+                    window.showCustomAlert("Transfer Gagal", "Terjadi kesalahan pada jaringan bank.");
+                }
+            });
         };
 
         const ppobProducts = {
-            pulsa: [
-                { name: "Pulsa Telkomsel/Indosat 10.000", price: 11500 },
-                { name: "Pulsa Telkomsel/Indosat 25.000", price: 26500 },
-                { name: "Pulsa Telkomsel/Indosat 50.000", price: 51500 }
-            ],
-            data: [
-                { name: "Paket Data Freedom 5GB (30 Hari)", price: 25000 },
-                { name: "Paket Data Internet 15GB", price: 55000 }
-            ],
-            token: [
-                { name: "Token Listrik PLN Rp 20.000", price: 21500 },
-                { name: "Token Listrik PLN Rp 50.000", price: 51500 }
-            ]
+            pulsa: [{ name: "Pulsa Telkomsel/Indosat 10.000", price: 11500 }, { name: "Pulsa Telkomsel/Indosat 25.000", price: 26500 }, { name: "Pulsa Telkomsel/Indosat 50.000", price: 51500 }],
+            data: [{ name: "Paket Data Freedom 5GB (30 Hari)", price: 25000 }, { name: "Paket Data Internet 15GB", price: 55000 }],
+            token: [{ name: "Token Listrik PLN Rp 20.000", price: 21500 }, { name: "Token Listrik PLN Rp 50.000", price: 51500 }]
         };
 
-        window.openPasarSyariah = function() {
-            window.toggleModal('pasarSyariahModal');
-            window.switchPasarTab('pulsa');
-        };
+        window.openPasarSyariah = function() { window.toggleModal('pasarSyariahModal'); window.switchPasarTab('pulsa'); };
 
         window.switchPasarTab = function(category) {
             ['pulsa', 'data', 'token'].forEach(cat => {
                 const btn = document.getElementById(`tab-${cat}`);
-                if(btn) btn.className = cat === category 
-                    ? "px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm transition-colors whitespace-nowrap"
-                    : "px-5 py-2.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors whitespace-nowrap";
+                if(btn) btn.className = cat === category ? "px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow-sm transition-colors whitespace-nowrap" : "px-5 py-2.5 rounded-xl text-xs font-bold bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors whitespace-nowrap";
             });
             const inputLabel = document.getElementById('label-target-input');
             const targetInput = document.getElementById('pasar-target-input');
@@ -1316,17 +1251,10 @@
             container.innerHTML = (ppobProducts[category] || []).map(item => `
                 <div onclick='window.selectPPOBItem(${JSON.stringify(item)}, "${category}")' class="bg-gray-50 hover:bg-emerald-50 border border-gray-200 p-4 rounded-xl flex justify-between items-center cursor-pointer transition-colors active:scale-[0.98]">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-emerald-600 font-bold border border-gray-100">
-                            <i class="fa-solid ${category === 'token' ? 'fa-bolt' : (category === 'data' ? 'fa-wifi' : 'fa-mobile-screen')}"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800 text-xs">${item.name}</h4>
-                            <p class="text-[10px] text-gray-400 mt-0.5 font-medium">Transaksi Serba Bisa</p>
-                        </div>
+                        <div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-emerald-600 font-bold border border-gray-100"><i class="fa-solid ${category === 'token' ? 'fa-bolt' : (category === 'data' ? 'fa-wifi' : 'fa-mobile-screen')}"></i></div>
+                        <div><h4 class="font-bold text-gray-800 text-xs">${item.name}</h4><p class="text-[10px] text-gray-400 mt-0.5 font-medium">Transaksi Serba Bisa</p></div>
                     </div>
-                    <div class="text-right">
-                        <span class="text-xs font-bold text-emerald-600">Rp ${item.price.toLocaleString('id-ID')}</span>
-                    </div>
+                    <div class="text-right"><span class="text-xs font-bold text-emerald-600">Rp ${item.price.toLocaleString('id-ID')}</span></div>
                 </div>
             `).join('');
         };
@@ -1350,45 +1278,36 @@
             }
             window.closeModal('ppobConfirmModal');
             window.closeModal('pasarSyariahModal');
-            window.showLoading("Memproses ke Provider API...");
-
-            try {
-                const trxId = "PPOB-" + Date.now();
-                await ExternalAPI.request('/api/ppob', { trxId });
-                
-                window.currentBalance -= window.selectedPPOBItem.price; 
-                await window.addTransactionRecord(`Beli ${window.selectedPPOBItem.name}`, "out", window.selectedPPOBItem.price);
-                window.hideLoading();
-                
-                document.getElementById('pay-merchant-name').innerText = `Pembelian: ${window.selectedPPOBItem.name}\nTRX: ${trxId}`;
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${window.selectedPPOBItem.price.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-            } catch (error) {
-                window.hideLoading();
-                window.showCustomAlert("Transaksi Gagal", "Provider PPOB sedang gangguan.");
-            }
+            
+            window.openPinModal(async () => {
+                window.showLoading("Memproses ke Provider API...");
+                try {
+                    const trxId = "PPOB-" + Date.now();
+                    await ExternalAPI.request('/api/ppob', { trxId });
+                    
+                    window.currentBalance -= window.selectedPPOBItem.price; 
+                    await window.addTransactionRecord(`Beli ${window.selectedPPOBItem.name}`, "out", window.selectedPPOBItem.price);
+                    window.hideLoading();
+                    
+                    document.getElementById('pay-merchant-name').innerText = `Pembelian: ${window.selectedPPOBItem.name}\nTRX: ${trxId}`;
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${window.selectedPPOBItem.price.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                } catch (error) {
+                    window.hideLoading();
+                    window.showCustomAlert("Transaksi Gagal", "Provider PPOB sedang gangguan.");
+                }
+            });
         };
 
         // SCANNER (OFFLINE AI & BARCODE)
         const halalDatabase = {
             haram: ['babi', 'pork', 'lard', 'angciu', 'mirin', 'rhum', 'rum', 'gelatin babi', 'khamr', 'alkohol', 'wine', 'bir', 'sake', 'soju', 'darah', 'marus', 'bangkai', 'anjing', 'dog', 'cacing', 'kodok', 'katak', 'karmin', 'carmine', 'e120', 'cochineal', 'arak'], 
             syubhat: ['gelatin', 'e441', 'e471', 'e472', 'emulsifier', 'pengemulsi', 'rennet', 'whey', 'perisa', 'flavor', 'flavour', 'ragi', 'yeast', 'ekstrak daging', 'kaldu sapi', 'kaldu ayam'],
-            barcodes: {
-                "8991234567890": { name: "Indomie Goreng Original", status: "HALAL", desc: "Sertifikasi Halal MUI Aktif." },
-                "8998000000001": { name: "Susu Beruang (Bear Brand)", status: "HALAL", desc: "Sertifikasi Halal MUI Aktif." }
-            }
+            barcodes: { "8991234567890": { name: "Indomie Goreng Original", status: "HALAL", desc: "Sertifikasi Halal MUI Aktif." }, "8998000000001": { name: "Susu Beruang (Bear Brand)", status: "HALAL", desc: "Sertifikasi Halal MUI Aktif." } }
         };
 
-        const video = document.getElementById('camera-stream');
-        const canvas = document.getElementById('snapshot-canvas');
-        const statusBadge = document.getElementById('status-badge');
-        const scanBtn = document.getElementById('scanBtn');
-        const scanIcon = document.getElementById('scanIcon');
-        
-        let ocrWorker = null;
-        let barcodeReader = null;
-        let streamActive = null;
-        let isScannerActive = false;
+        const video = document.getElementById('camera-stream'); const canvas = document.getElementById('snapshot-canvas'); const statusBadge = document.getElementById('status-badge'); const scanBtn = document.getElementById('scanBtn'); const scanIcon = document.getElementById('scanIcon');
+        let ocrWorker = null; let barcodeReader = null; let streamActive = null; let isScannerActive = false;
 
         async function initEngines() {
             try { if (typeof ZXing !== 'undefined' && !barcodeReader) barcodeReader = new ZXing.BrowserMultiFormatReader(); } catch(e) {}
@@ -1398,18 +1317,14 @@
                     statusBadge.innerHTML = '<i class="fa-solid fa-check-circle"></i> AI Engine Siap';
                     statusBadge.className = "bg-emerald-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-md";
                 }
-            } catch (error) {
-                statusBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error AI Engine';
-                statusBadge.className = "bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-md";
-            }
+            } catch (error) { statusBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error AI Engine'; statusBadge.className = "bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-md"; }
         }
 
         window.startCamera = async function() {
             document.getElementById('camera-error-overlay').classList.replace('flex', 'hidden');
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } } });
-                streamActive = stream;
-                video.srcObject = stream;
+                streamActive = stream; video.srcObject = stream;
                 await video.play().catch(e => console.error(e));
                 isScannerActive = true;
                 if(barcodeReader) startBarcodeScanning();
@@ -1424,168 +1339,79 @@
             const attemptDecode = () => {
                 if (!isScannerActive) return;
                 barcodeReader.decodeFromVideoElement(video).then(result => {
-                    if (result && isScannerActive) {
-                        isScannerActive = false;
-                        processBarcodeQR(result.getText());
-                    }
-                }).catch(() => {
-                    if (isScannerActive) setTimeout(attemptDecode, 1000); 
-                });
+                    if (result && isScannerActive) { isScannerActive = false; processBarcodeQR(result.getText()); }
+                }).catch(() => { if (isScannerActive) setTimeout(attemptDecode, 1000);  });
             };
             attemptDecode();
         }
 
         window.stopCamera = function() {
             isScannerActive = false;
-            if (streamActive) {
-                streamActive.getTracks().forEach(track => track.stop());
-                streamActive = null;
-                video.srcObject = null;
-            }
+            if (streamActive) { streamActive.getTracks().forEach(track => track.stop()); streamActive = null; video.srcObject = null; }
         };
 
         window.captureAndScanText = async function() {
             if (!ocrWorker) return window.showCustomAlert("AI Sedang Dimuat", "Harap tunggu indikator di kanan atas menjadi hijau.");
             if (!video.videoWidth || video.readyState !== video.HAVE_ENOUGH_DATA) return window.showCustomAlert("Kamera Belum Siap", "Tunggu hingga gambar kamera muncul.");
             
-            isScannerActive = false; 
-            document.getElementById('scanLine').style.display = 'block';
-            document.getElementById('instruction-text').innerText = "AI sedang membaca teks...";
-            scanBtn.disabled = true; 
-            scanIcon.className = "fa-solid fa-spinner fa-spin text-2xl text-white";
-            
+            isScannerActive = false; document.getElementById('scanLine').style.display = 'block'; document.getElementById('instruction-text').innerText = "AI sedang membaca teks..."; scanBtn.disabled = true; scanIcon.className = "fa-solid fa-spinner fa-spin text-2xl text-white";
             try {
-                const ctx = canvas.getContext('2d');
-                canvas.width = video.videoWidth * 0.5;
-                canvas.height = video.videoHeight * 0.5;
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const base64Image = canvas.toDataURL('image/jpeg', 0.5);
-                const result = await ocrWorker.recognize(base64Image);
+                const ctx = canvas.getContext('2d'); canvas.width = video.videoWidth * 0.5; canvas.height = video.videoHeight * 0.5; ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const base64Image = canvas.toDataURL('image/jpeg', 0.5); const result = await ocrWorker.recognize(base64Image);
                 tampilkanHasilAI(result.data.text.toLowerCase());
-            } catch (err) {
-                window.showCustomAlert("Gagal", "Gagal memproses gambar AI. Pastikan cahaya terang.");
-                isScannerActive = true; startBarcodeScanning();
-            } finally {
-                document.getElementById('scanLine').style.display = 'none';
-                document.getElementById('instruction-text').innerText = "Arahkan kamera ke Komposisi atau QRIS";
-                scanIcon.className = "fa-solid fa-font text-2xl text-white";
-                scanBtn.disabled = false;
-            }
+            } catch (err) { window.showCustomAlert("Gagal", "Gagal memproses gambar AI. Pastikan cahaya terang."); isScannerActive = true; startBarcodeScanning(); } 
+            finally { document.getElementById('scanLine').style.display = 'none'; document.getElementById('instruction-text').innerText = "Arahkan kamera ke Komposisi atau QRIS"; scanIcon.className = "fa-solid fa-font text-2xl text-white"; scanBtn.disabled = false; }
         };
 
         function tampilkanHasilAI(text) {
-            document.getElementById('result-title').innerText = "Analisis AI Engine";
-            const contentDiv = document.getElementById('result-content');
-            
-            let htmlResult = `
-                <div class="mb-5">
-                    <p class="text-[10px] font-bold uppercase mb-1.5 text-gray-500 tracking-wider">Teks Terbaca:</p>
-                    <div class="bg-white p-4 rounded-xl text-xs text-gray-600 h-24 overflow-y-auto border border-gray-200 shadow-sm leading-relaxed">
-                        ${text || "Teks tidak terbaca. Harap dekatkan kamera dan pastikan terang."}
-                    </div>
-                </div>
-                <div id="ai-result" class="space-y-3"></div>`;
-            contentDiv.innerHTML = htmlResult;
-            let aiResultDiv = document.getElementById('ai-result');
-            let foundIssues = false;
-
-            halalDatabase.haram.forEach(word => {
-                if (text.includes(word)) { aiResultDiv.innerHTML += createSuperAppCard("fa-triangle-exclamation", word, "HARAM", "Dilarang dikonsumsi secara Syariat."); foundIssues = true; }
-            });
-            halalDatabase.syubhat.forEach(word => {
-                if (text.includes(word)) { aiResultDiv.innerHTML += createSuperAppCard("fa-circle-question", word, "SYUBHAT", "Bahan Kritis. Wajib berlogo Halal MUI."); foundIssues = true; }
-            });
-
-            if (!foundIssues && text.length > 5) {
-                aiResultDiv.innerHTML = `
-                    <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl text-center shadow-sm">
-                        <i class="fa-solid fa-check-circle text-4xl text-emerald-500 mb-3"></i>
-                        <h3 class="font-bold text-emerald-800 text-base">Aman Terkendali</h3>
-                        <p class="text-xs text-emerald-600 mt-1 font-medium">Tidak terdeteksi bahan Haram/Syubhat dari teks yang terbaca.</p>
-                    </div>`;
-            }
+            document.getElementById('result-title').innerText = "Analisis AI Engine"; const contentDiv = document.getElementById('result-content');
+            let htmlResult = `<div class="mb-5"><p class="text-[10px] font-bold uppercase mb-1.5 text-gray-500 tracking-wider">Teks Terbaca:</p><div class="bg-white p-4 rounded-xl text-xs text-gray-600 h-24 overflow-y-auto border border-gray-200 shadow-sm leading-relaxed">${text || "Teks tidak terbaca. Harap dekatkan kamera dan pastikan terang."}</div></div><div id="ai-result" class="space-y-3"></div>`;
+            contentDiv.innerHTML = htmlResult; let aiResultDiv = document.getElementById('ai-result'); let foundIssues = false;
+            halalDatabase.haram.forEach(word => { if (text.includes(word)) { aiResultDiv.innerHTML += createSuperAppCard("fa-triangle-exclamation", word, "HARAM", "Dilarang dikonsumsi secara Syariat."); foundIssues = true; } });
+            halalDatabase.syubhat.forEach(word => { if (text.includes(word)) { aiResultDiv.innerHTML += createSuperAppCard("fa-circle-question", word, "SYUBHAT", "Bahan Kritis. Wajib berlogo Halal MUI."); foundIssues = true; } });
+            if (!foundIssues && text.length > 5) { aiResultDiv.innerHTML = `<div class="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl text-center shadow-sm"><i class="fa-solid fa-check-circle text-4xl text-emerald-500 mb-3"></i><h3 class="font-bold text-emerald-800 text-base">Aman Terkendali</h3><p class="text-xs text-emerald-600 mt-1 font-medium">Tidak terdeteksi bahan Haram/Syubhat dari teks yang terbaca.</p></div>`; }
             document.getElementById('resultPanel').classList.add('active');
         }
 
         function processBarcodeQR(data) {
-            const contentDiv = document.getElementById('result-content');
-            document.getElementById('result-title').innerText = "Pemindai Barcode/QR";
-            let produk = halalDatabase.barcodes[data];
-            if (produk) {
-                contentDiv.innerHTML = createSuperAppCard("fa-barcode", produk.name, produk.status, produk.desc);
-            } else {
-                contentDiv.innerHTML = `
-                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center mb-4">
-                        <i class="fa-solid fa-qrcode text-5xl text-emerald-600 mb-4"></i>
-                        <h3 class="font-bold text-gray-800 text-lg">Mendeteksi QRIS</h3>
-                        <p class="text-xs text-gray-500 mt-1.5 font-mono bg-gray-50 py-1 px-3 rounded-lg inline-block">${data}</p>
-                        <button onclick="window.payQRIS()" class="w-full mt-6 bg-emerald-600 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-95 text-sm shadow-md hover:bg-emerald-700 transition-colors">
-                            <i class="fa-solid fa-wallet"></i> Bayar Merchant QRIS Rp 25.000
-                        </button>
-                    </div>`;
-            }
+            const contentDiv = document.getElementById('result-content'); document.getElementById('result-title').innerText = "Pemindai Barcode/QR"; let produk = halalDatabase.barcodes[data];
+            if (produk) { contentDiv.innerHTML = createSuperAppCard("fa-barcode", produk.name, produk.status, produk.desc); } 
+            else { contentDiv.innerHTML = `<div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm text-center mb-4"><i class="fa-solid fa-qrcode text-5xl text-emerald-600 mb-4"></i><h3 class="font-bold text-gray-800 text-lg">Mendeteksi QRIS</h3><p class="text-xs text-gray-500 mt-1.5 font-mono bg-gray-50 py-1 px-3 rounded-lg inline-block">${data}</p><button onclick="window.payQRIS()" class="w-full mt-6 bg-emerald-600 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 active:scale-95 text-sm shadow-md hover:bg-emerald-700 transition-colors"><i class="fa-solid fa-wallet"></i> Bayar Merchant QRIS Rp 25.000</button></div>`; }
             document.getElementById('resultPanel').classList.add('active');
         }
 
         function createSuperAppCard(icon, title, status, desc) {
             let color = status === "HARAM" ? "red" : (status === "SYUBHAT" ? "amber" : "emerald");
-            return `
-                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col gap-1.5 border-l-4 border-l-${color}-500">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-2.5">
-                            <div class="w-7 h-7 rounded-full bg-${color}-50 flex items-center justify-center"><i class="fa-solid ${icon} text-${color}-500 text-[11px]"></i></div>
-                            <span class="font-bold text-gray-800 text-sm capitalize">${title}</span>
-                        </div>
-                        <span class="text-[9px] font-bold bg-${color}-50 text-${color}-600 px-2 py-1 rounded border border-${color}-100 tracking-wider">${status}</span>
-                    </div>
-                    <p class="text-[10px] text-gray-500 ml-[38px] leading-tight font-medium">${desc}</p>
-                </div>`;
+            return `<div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex flex-col gap-1.5 border-l-4 border-l-${color}-500"><div class="flex justify-between items-center"><div class="flex items-center gap-2.5"><div class="w-7 h-7 rounded-full bg-${color}-50 flex items-center justify-center"><i class="fa-solid ${icon} text-${color}-500 text-[11px]"></i></div><span class="font-bold text-gray-800 text-sm capitalize">${title}</span></div><span class="text-[9px] font-bold bg-${color}-50 text-${color}-600 px-2 py-1 rounded border border-${color}-100 tracking-wider">${status}</span></div><p class="text-[10px] text-gray-500 ml-[38px] leading-tight font-medium">${desc}</p></div>`;
         }
 
         window.payQRIS = async function() {
             const harga = 25000;
-            if(window.currentBalance < harga) {
-                window.closeResult();
-                return window.showCustomAlert("Gagal", "Saldo di dompet tidak mencukupi.");
-            }
+            if(window.currentBalance < harga) { window.closeResult(); return window.showCustomAlert("Gagal", "Saldo di dompet tidak mencukupi."); }
             window.closeResult();
-            window.showLoading("Menyelesaikan Pembayaran QRIS...");
-            setTimeout(async () => {
-                window.currentBalance -= harga; 
-                await window.addTransactionRecord("Pembayaran QRIS", "out", harga);
-                window.hideLoading();
-                document.getElementById('pay-merchant-name').innerText = "Pembayaran QRIS Sukses";
-                document.getElementById('pay-modal-amount').innerText = `-Rp ${harga.toLocaleString('id-ID')}`;
-                window.toggleModal('paymentModal');
-            }, 1200);
+            
+            window.openPinModal(async () => {
+                window.showLoading("Menyelesaikan Pembayaran QRIS...");
+                setTimeout(async () => {
+                    window.currentBalance -= harga; 
+                    await window.addTransactionRecord("Pembayaran QRIS", "out", harga);
+                    window.hideLoading();
+                    document.getElementById('pay-merchant-name').innerText = "Pembayaran QRIS Sukses";
+                    document.getElementById('pay-modal-amount').innerText = `-Rp ${harga.toLocaleString('id-ID')}`;
+                    window.toggleModal('paymentModal');
+                }, 1200);
+            });
         };
 
-        window.closeResult = function() {
-            document.getElementById('resultPanel').classList.remove('active');
-            isScannerActive = true; 
-        };
-
+        window.closeResult = function() { document.getElementById('resultPanel').classList.remove('active'); isScannerActive = true; };
         window.openTransferModal = () => window.toggleModal('transferModal');
         window.openHistoryModal = () => window.toggleModal('historyModal');
         window.openProfileModal = () => window.toggleModal('profileModal');
-        window.toggleNotifications = () => {
-            document.getElementById('notif-badge').classList.add('hidden');
-            window.toggleModal('notificationModal');
-        };
-
+        window.toggleNotifications = () => { document.getElementById('notif-badge').classList.add('hidden'); window.toggleModal('notificationModal'); };
         window.navigate = function(targetScreenId) {
-            document.getElementById('home-screen').className = "page-transition page-hidden h-full flex flex-col w-full";
-            document.getElementById('scanner-screen').className = "page-transition page-hidden h-full flex flex-col overflow-hidden bg-black w-full relative";
-            window.closeResult();
-
-            if (targetScreenId === 'scanner-screen') {
-                document.getElementById(targetScreenId).className = "page-transition page-active h-full flex flex-col overflow-hidden bg-black w-full relative";
-                window.startCamera();
-                initEngines();
-            } else {
-                document.getElementById('home-screen').className = "page-transition page-active h-full flex flex-col w-full";
-                window.stopCamera();
-            }
+            document.getElementById('home-screen').className = "page-transition page-hidden h-full flex flex-col w-full"; document.getElementById('scanner-screen').className = "page-transition page-hidden h-full flex flex-col overflow-hidden bg-black w-full relative"; window.closeResult();
+            if (targetScreenId === 'scanner-screen') { document.getElementById(targetScreenId).className = "page-transition page-active h-full flex flex-col overflow-hidden bg-black w-full relative"; window.startCamera(); initEngines(); } 
+            else { document.getElementById('home-screen').className = "page-transition page-active h-full flex flex-col w-full"; window.stopCamera(); }
         };
     </script>
 </body>
